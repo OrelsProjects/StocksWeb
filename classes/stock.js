@@ -3,11 +3,11 @@ import Statistics from './statistics'
 
 export default class Stock {
     constructor(
-        stockInfo,
+        stockName,
         financials,
         statistics,
     ) {
-        this.stockInfo = stockInfo
+        this.stockName = stockName ? stockName : ""
         this.financials = new Financials(financials)
         this.statistics = new Statistics(statistics)
     }
@@ -43,6 +43,10 @@ export default class Stock {
 
     getTotalDebt() {
 
+    }
+
+    getStockName() {
+        return this.statistics.name
     }
 
 }

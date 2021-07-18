@@ -1,14 +1,31 @@
 .container {
-
+    height: 100%;
+    width: 100%;
+    position: relative;
 }
 
-.modulesContainer{
+.backArrow {
+    position: absolute;
+    top: 10;
+    left: 10;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+}
+
+.modulesContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.futureGrowthContainer {
     height: 500px;
     width: 500px;
 }
 
-.futureGrowthContainer {
-
+.howMuchToGrowContainer {
+    height: 500px;
+    width: 500px;
 }
-
-.howMuchToGrowContainer {}

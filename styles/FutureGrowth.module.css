@@ -1,0 +1,30 @@
+.container {
+    height: 100%;
+    width: 100%;
+    background-color: rebeccapurple;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.titleContainer {
+    color: #dfdfdf;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.calculateButton {
+    height: 48px;
+    width: 160px;
+    color: #dfdfdf;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    margin-bottom: 25px;
+    cursor: pointer;
+    margin: auto;
+    margin-bottom: 25px;
+}
