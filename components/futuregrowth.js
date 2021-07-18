@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import styles from '../styles/FutureGrowth.module.css'
+import NumberUtils from '../utils/numberUtils'
 
 const FutureGrowth = (props) => {
 
     const stock = props.stock
 
     const [years, setYears] = useState(5)
-    const [annualGrowthRate, setAnnualGrowthRate] = useState(0.1)
+    const [annualGrowthRate, setAnnualGrowthRate] = useState(0.2)
     const [futureShares, setFutureShares] = useState(659610000)
-    const [futureProfitMargin, setFutureProfitMargin] = useState(0.327)
-    const [futurePE, setFuturePE] = useState(15)
+    const [futureProfitMargin, setFutureProfitMargin] = useState(0.3)
+    const [futurePE, setFuturePE] = useState(90)
     const [futureRevenue, setFutureRevenue] = useState(0)
     const [futureEarnings, setFutureEarnings] = useState(0)
     const [futureEPS, setFutureEPS] = useState(0)
@@ -17,7 +18,7 @@ const FutureGrowth = (props) => {
     const [IRR, setIRR] = useState(0)
 
     function calculateValues() {
-        // setFutureShares(stock.getSharesOutstanding())
+        setFutureShares(stock.getSharesOutstanding()*1.05)
         calculateFutureRevenue()
     }
 
@@ -45,8 +46,6 @@ const FutureGrowth = (props) => {
         setIRR(IRR)
     }
 
-
-
     useEffect(() => {
         calculateFutureEarnings()
     }, [futureRevenue])
@@ -62,12 +61,18 @@ const FutureGrowth = (props) => {
 
     return (
         <div className={`${styles.container}`}>
-            <div className={`${styles.titleContainer}`}>{stock.getStockName()}</div>
-            <div>Future Revenue: {futureRevenue}</div>
-            <div>Future Earnings: {futureEarnings}</div>
-            <div>Future EPS: {futureEPS}</div>
-            <div>Future Price: {futurePrice}</div>
-            <div>IRR: {IRR}</div>
+            <div className={`${styles.stockNameContainer}`}>{stock.getStockName()}</div>
+            <div className={`${styles.titleContainer}`}> Assumptions </div>
+            <div>Years: {years}</div>
+            <div>Growth Rate: {NumberUtils.numberToPercentage(annualGrowthRate)}</div>
+            <div>Future Profit Margin: {NumberUtils.numberToPercentage(futureProfitMargin)}</div>
+            <div>Future P/E Ratio: {futurePE}</div>
+            <div className={`${styles.titleContainer}`}> Projections </div>
+            <div>Future Revenue: {NumberUtils.numberToDollars(futureRevenue)}</div>
+            <div>Future Earnings: {NumberUtils.numberToDollars(futureEarnings)}</div>
+            <div>Future EPS: {NumberUtils.numberToDollars(futureEPS)}</div>
+            <div>Future Price: {NumberUtils.numberToDollars(futurePrice)}</div>
+            <div>IRR: {NumberUtils.numberToPercentage(IRR)}</div>
             <div className={`${styles.calculateButton}`} onClick={calculateValues}>Calculate</div>
         </div>
     )
