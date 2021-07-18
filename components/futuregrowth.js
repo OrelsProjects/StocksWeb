@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import styles from '../styles/FutureGrowth.module.css'
 import NumberUtils from '../utils/numberUtils'
+import { TextField, InputAdornment } from '@material-ui/core'
 
 const FutureGrowth = (props) => {
 
     const stock = props.stock
 
     const [years, setYears] = useState(5)
-    const [annualGrowthRate, setAnnualGrowthRate] = useState(0.2)
+    const [annualGrowthRate, setAnnualGrowthRate] = useState(20)
     const [futureShares, setFutureShares] = useState(659610000)
     const [futureProfitMargin, setFutureProfitMargin] = useState(0.3)
     const [futurePE, setFuturePE] = useState(90)
@@ -18,13 +19,13 @@ const FutureGrowth = (props) => {
     const [IRR, setIRR] = useState(0)
 
     function calculateValues() {
-        setFutureShares(stock.getSharesOutstanding()*1.05)
+        setFutureShares(stock.getSharesOutstanding() * 1.05)
         calculateFutureRevenue()
     }
 
     function calculateFutureRevenue() {
         const currentRevenue = stock.getRevenue()
-        const futureRevenue = currentRevenue * (Math.pow((1 + annualGrowthRate / 1), (1 * years)))
+        const futureRevenue = currentRevenue * (Math.pow((1 + (annualGrowthRate/100)/ 1), (1 * years)))
         setFutureRevenue(futureRevenue)
     }
 
@@ -46,6 +47,26 @@ const FutureGrowth = (props) => {
         setIRR(IRR)
     }
 
+    function handleYearsChange(event) {
+        setYears(event.target.value)
+    }
+
+    function handleGrowthRateChange(event) {
+        setAnnualGrowthRate(event.target.value / 100)
+    }
+
+    function handleFutureSharesChange(event) {
+        setFutureShares(event.target.value)
+    }
+
+    function handleFuturePEChange(event) {
+        setFuturePE(event.target.value)
+    }
+
+    function handleOutsideClick(){
+
+    }
+
     useEffect(() => {
         calculateFutureEarnings()
     }, [futureRevenue])
@@ -63,10 +84,26 @@ const FutureGrowth = (props) => {
         <div className={`${styles.container}`}>
             <div className={`${styles.stockNameContainer}`}>{stock.getStockName()}</div>
             <div className={`${styles.titleContainer}`}> Assumptions </div>
-            <div>Years: {years}</div>
-            <div>Growth Rate: {NumberUtils.numberToPercentage(annualGrowthRate)}</div>
-            <div>Future Profit Margin: {NumberUtils.numberToPercentage(futureProfitMargin)}</div>
-            <div>Future P/E Ratio: {futurePE}</div>
+            <TextField id="ticker" label="Years"
+                type='number'
+                onChange={handleYearsChange}
+                defaultValue={years}
+            />
+            <TextField id="growth" label="Growth Rate"
+                type='number'
+                onChange={handleGrowthRateChange}
+                suffix="%"
+                defaultValue={annualGrowthRate}
+            />
+            <TextField id="shares" label="Shares Outstanding"
+                type='number'
+                onChange={handleFutureSharesChange}
+                defaultValue={futureShares}
+            />
+            <TextField id="pe" label="P/E Ratio"
+                type='number'
+                onChange={handleFuturePEChange}
+                defaultValue={futurePE}      />
             <div className={`${styles.titleContainer}`}> Projections </div>
             <div>Future Revenue: {NumberUtils.numberToDollars(futureRevenue)}</div>
             <div>Future Earnings: {NumberUtils.numberToDollars(futureEarnings)}</div>
