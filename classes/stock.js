@@ -18,23 +18,24 @@ export default class Stock {
     }
 
     getTTMPERatio() {
-        return this.statistics.pe
+        return this.statistics.pe ? this.statistics.pe : 0
     }
 
     getEps() {
-        return this.statistics.eps
+        return this.statistics.eps ? this.statistics.eps : 0
     }
 
     getRevenue() {
-        return this.statistics.revenue
+        return this.statistics.revenue ? this.statistics.revenue : 0
     }
 
     getPrice() {
-        return this.financials.price
+        return this.financials.price ? this.financials.price : 0
     }
 
     getSharesOutstanding() {
-        return this.statistics.sharesOutstanding ? this.statistics.sharesOutstanding : this.getTTMEarnings() / this.getEps()
+        return this.statistics.sharesOutstanding ?
+            this.statistics.sharesOutstanding : this.getTTMEarnings() / this.getEps()
     }
 
     getProfitMargin() {

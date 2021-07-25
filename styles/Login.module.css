@@ -1,0 +1,71 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.buttonMargin{
+    margin: 20px;
+}
+
+.loginGoogle {
+    height: 35px;
+    width: 200px;
+    color: red;
+    background-color: red;
+}
+
+.loginGoogleImage {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background: url("../assets//google-logo.png");
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.textFieldRoot {
+    color: red;
+}
+
+.textFieldFocused {
+    color: royalblue;
+}
+
+.loginButton {
+    /* height:50px;
+    width:50px; */
+    background-color: red;
+}
+
+.forgotPassword {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.301);
+    cursor: pointer;
+    margin: 8px;
+}
+
+.animationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.animation {
+    width: 448px;
+    height: 300px;
+}
+
+.padding {
+    padding: 0 40px;
+}

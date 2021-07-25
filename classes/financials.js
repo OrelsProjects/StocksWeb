@@ -14,10 +14,14 @@ export default class Financials {
     }
 
     getTTMEarnings() {
-        const q1Earnings = this.financialsChart.quarterly[0].earnings.raw
-        const q2Earnings = this.financialsChart.quarterly[1].earnings.raw
-        const q3Earnings = this.financialsChart.quarterly[2].earnings.raw
-        const q4Earnings = this.financialsChart.quarterly[3].earnings.raw
+        const q1Earnings = this.financialsChart?.quarterly[0]?.earnings?.raw ?
+            this.financialsChart.quarterly[0].earnings.raw : 0
+        const q2Earnings = this.financialsChart?.quarterly[1]?.earnings.raw ?
+            this.financialsChart.quarterly[1].earnings.raw : 0
+        const q3Earnings = this.financialsChart?.quarterly[2]?.earnings.raw ?
+            this.financialsChart.quarterly[2].earnings.raw : 0
+        const q4Earnings = this.financialsChart?.quarterly[3]?.earnings.raw ?
+            this.financialsChart.quarterly[3].earnings.raw : 0
         return q1Earnings + q2Earnings + q3Earnings + q4Earnings
     }
 
