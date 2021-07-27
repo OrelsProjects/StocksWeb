@@ -23,6 +23,7 @@ const FutureGrowth = (props) => {
         const newFutureRevenue =
             currentRevenue * Math.pow(1 + annualGrowthRate / 100 / 1, 1 * years);
         const newFutureEarnings = newFutureRevenue * (futureProfitMargin / 100);
+        debugger
         const newFutureEPS = newFutureEarnings / newFutureShares;
         const newFuturePrice = newFutureEPS * futurePE;
         const newIRR = Math.pow(newFuturePrice / stock.getPrice(), 1 / years) - 1;
