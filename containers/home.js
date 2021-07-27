@@ -38,7 +38,6 @@ export default function Home() {
             }
             dispatch(stocksActions.addNewStock(stock))
             setStock(stock)
-            debugger;
             setIsLoading(false)
         } catch (ex) {
             setIsLoading(false)
