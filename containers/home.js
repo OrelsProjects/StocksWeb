@@ -111,7 +111,9 @@ export default function Home() {
                 <TextField id="ticker" label="Ticker" variant="filled"
                     type='string'
                     onChange={handleTickerChange}
+                    inputProps={{ style: { textTransform: "uppercase", color: "#dfdfdf" } }}
                     InputLabelProps={{
+                        style: {color: "#dfdfdf"},
                         classes: {
                             root: styles.textFieldRoot,
                             focused: styles.textFieldFocused,
@@ -120,7 +122,7 @@ export default function Home() {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <ShowChartIcon />
+                                <ShowChartIcon style= {{color: "#dfdfdf"}}/>
                             </InputAdornment>
                         ),
                     }}
