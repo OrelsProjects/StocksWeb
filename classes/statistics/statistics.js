@@ -12,15 +12,18 @@ export default class Statistics {
     }
 
     getEPS() {
-        return this.statistics.defaultKeyStatistics.trailingEps.raw
+        return this.statistics?.defaultKeyStatistics?.trailingEps.raw  ? 
+        this.statistics?.defaultKeyStatistics?.trailingEps.raw : 0
     }
 
     getSharesOutstanding() {
-        return this.statistics.defaultKeyStatistics.sharesOutstanding.raw
+        return this.statistics?.defaultKeyStatistics?.sharesOutstanding.raw ?
+        this.statistics?.defaultKeyStatistics?.sharesOutstanding.raw : 0
     }
 
     getRevenue() {
-        return this.statistics.financialData.totalRevenue.raw
+        return this.statistics?.financialData?.totalRevenue.raw ? 
+        this.statistics?.financialData?.totalRevenue.raw : 0
     }
 
     getName() {

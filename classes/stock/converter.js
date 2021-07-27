@@ -14,8 +14,8 @@ const Converter = {
         return new Stock(
             stock.id,
             stock.ticker,
-            JSON.parse(stock.financials),
-            JSON.parse(stock.statistics)
+            JSON.parse(stock.financials).financials,
+            JSON.parse(stock.statistics).statistics
         );
     }
 };

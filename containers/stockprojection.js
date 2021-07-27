@@ -7,7 +7,7 @@ const StockProjection = (props) => {
     const stockToProject = props.stock
     return (
         <div className={`${styles.container}`}>
-            <div className={`${styles.backArrow}`} onClick={()=>props.back()}>
+            <div className={`${styles.backArrow}`} onClick={props.onBackClick}>
                 <ArrowBack style={{ color: "#dfdfdf"}}/>
                 </div>
             <div className={`${styles.modulesContainer}`}>

@@ -100,6 +100,7 @@ const FutureGrowth = (props) => {
 
     useEffect(() => {
         initInitialValues()
+        calculateValues()
     }, [])
 
     return (
@@ -113,7 +114,7 @@ const FutureGrowth = (props) => {
                 label="Years"
                 type="number"
                 onChange={handleYearsChange}
-                defaultValue={years}
+                value={years}
             />
             <TextField
                 id="growth"
@@ -121,7 +122,7 @@ const FutureGrowth = (props) => {
                 type="number"
                 onChange={handleGrowthRateChange}
                 suffix="%"
-                defaultValue={annualGrowthRate}
+                value={annualGrowthRate}
             />
             <TextField
                 id="profit-margin"
@@ -129,21 +130,21 @@ const FutureGrowth = (props) => {
                 type="number"
                 onChange={handleProfitMarginChange}
                 suffix="%"
-                defaultValue={futureProfitMargin}
+                value={futureProfitMargin}
             />
             <TextField
                 id="shares"
                 label="Shares Outstanding"
                 type="number"
                 onChange={handleFutureSharesChange}
-                defaultValue={futureShares}
+                value={futureShares}
             />
             <TextField
                 id="pe"
                 label="P/E Ratio"
                 type="number"
                 onChange={handleFuturePEChange}
-                defaultValue={futurePE}
+                value={futurePE}
             />
             <div className={`${styles.titleContainer}`}> Projections </div>
             <div>Future Revenue: {NumberUtils.numberToDollars(futureRevenue)}</div>

@@ -48,7 +48,6 @@ export default class Stock {
     }
 
     getStockName() {
-        debugger;
         return this.statistics.getName()
     }
 

@@ -11,6 +11,7 @@ import { useState } from 'react'
 import Login from './login'
 import firebase from 'firebase'
 import { collections } from '../constants'
+import { useEffect } from 'react'
 
 export default function Home() {
 
@@ -19,9 +20,8 @@ export default function Home() {
 
     const [showStockProjection, setShowStocksProjection] = useState(false)
     const [ticker, setTicker] = useState("DISCA")
-    const [stock, setStock] = useState(new Stock())
+    const [stock, setStock] = useState(null)
     const stocks = useSelector(reducers => reducers.stocks.stocks)
-    const user = useSelector(reducers => reducers.auth.user)
     const db = firebase.firestore()
 
     const getStockInfo = async () => {
@@ -35,7 +35,6 @@ export default function Home() {
         }
         dispatch(stocksActions.addNewStock(stock))
         setStock(stock)
-        debugger;
     }
 
     /**
@@ -57,7 +56,7 @@ export default function Home() {
         const res = await db.collection(collections.stocks).withConverter(stockConverter)
             .where("ticker", "==", ticker).get()
         const data = res.docs.map(doc => doc.data())
-        return data.length == 0 ? null : data
+        return data.length == 0 ? null : data[0]
     }
 
     const getStockInfoFromAPI = async () => {
@@ -78,9 +77,8 @@ export default function Home() {
         return new Stock("", ticker, financials, statistics)
     }
 
-    const handleShowStockProjection = () => {
+    const handleGetStockInfo = () => {
         getStockInfo()
-        // setShowStocksProjection(true)
     }
 
     const handleHideStockProjection = () => {
@@ -90,6 +88,12 @@ export default function Home() {
     const handleTickerChange = (event) => {
         setTicker(event.target.value)
     }
+
+    useEffect(()=>{
+        if(stock){
+            setShowStocksProjection(true)
+        }
+    }, [stock])
 
     return (
         <div className={`${styles.container}`}>
@@ -113,9 +117,9 @@ export default function Home() {
                     }}
                 /> : ""}
             {!showStockProjection ?
-                <Button className={`${styles.getStockInfoButton}`} variant="contained" color="primary" onClick={handleShowStockProjection}>Get Stock Info</Button> : ""}
+                <Button className={`${styles.getStockInfoButton}`} variant="contained" color="primary" onClick={handleGetStockInfo}>Get Stock Info</Button> : ""}
             {showStockProjection ? <div className={`${styles.stockProjectionContainer}`}>
-                <StockProjection back={handleHideStockProjection} stock={stock} />
+                <StockProjection onBackClick={handleHideStockProjection} stock={stock} />
             </div> : ""}
         </div>
     )
