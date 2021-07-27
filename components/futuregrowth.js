@@ -18,10 +18,6 @@ const FutureGrowth = (props) => {
     const [IRR, setIRR] = useState(0);
 
     function calculateValues() {
-        if(futureProfitMargin < 0) {
-            alert('Future profit margin cannot be less than 0')
-            return
-        }
         const newFutureShares = stock.getSharesOutstanding() * 1.05;
         const currentRevenue = stock.getRevenue();
         const newFutureRevenue =
@@ -106,8 +102,11 @@ const FutureGrowth = (props) => {
 
     useEffect(() => {
         initInitialValues()
-        calculateValues()
     }, [])
+
+    useEffect(()=>{
+        calculateValues()
+    }, [futureShares, futureProfitMargin, futurePE, years, annualGrowthRate, futureShares, futurePE])
 
     return (
         <div className={`${styles.container}`}>
