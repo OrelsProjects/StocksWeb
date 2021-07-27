@@ -60,9 +60,37 @@ export default function Login() {
 
     async function handleLogin() {
         await firebaseApp.auth().signInWithEmailAndPassword(email, password).then(function () {
+            alert(`user logged in!`)
         }).catch(function (error) {
             alert('error: ' + error.message)
         })
+    }
+
+    async function handleGoogleLogin() {
+        const provider = new firebaseApp.auth.GoogleAuthProvider();
+        await
+            //  firebaseApp.auth().signInWithEmailAndPassword(email, password)
+            firebaseApp.auth()
+                .signInWithPopup(provider)
+                .then(function (result) {
+                    /** @type {firebase.auth.OAuthCredential} */
+                    var credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    // ...
+                }).catch((error) => {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    alert('error: ' + error.message)
+                })
     }
 
     function handleChangeEmail(event) {
@@ -131,7 +159,8 @@ export default function Login() {
                         <Button
                             color="secondary"
                             variant="contained"
-                            className={`${styles.loginGoogle}`}>
+                            className={`${styles.loginGoogle}`}
+                            onClick={handleGoogleLogin}>
                             Google
                 </Button>
                     </div>

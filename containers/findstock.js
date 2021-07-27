@@ -21,5 +21,4 @@
     options.url = `${HttpRequestsUrls.getStockStatisticsURL()}`
     const statisticsResponse = await axios.request(options)
     stock = new Stock("FB", financials, statisticsResponse.data)
-    console.log(stock)
     dispatch(stocksActions.addNewStock(stock))*/

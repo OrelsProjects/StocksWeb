@@ -4,11 +4,13 @@ import * as stocksActions from '../actions/stocks'
 import HttpRequestsUrls from '../utils/HttpRequestsUrls'
 import { TextField, Button, InputAdornment } from "@material-ui/core"
 import ShowChartIcon from '@material-ui/icons/ShowChart';
-import Stock from '../classes/stock'
+import Stock from '../classes/stock/stock'
+import stockConverter from '../classes/stock/converter'
 import StockProjection from './stockprojection'
 import { useState } from 'react'
 import Login from './login'
 import firebase from 'firebase'
+import { collections } from '../constants'
 
 export default function Home() {
 
@@ -18,21 +20,44 @@ export default function Home() {
     const [showStockProjection, setShowStocksProjection] = useState(false)
     const [ticker, setTicker] = useState("DISCA")
     const [stock, setStock] = useState(new Stock())
-    const stocks = useSelector(state => state.stocks.stocks)
-    const user = useSelector(state => state.auth.user)
+    const stocks = useSelector(reducers => reducers.stocks.stocks)
+    const user = useSelector(reducers => reducers.auth.user)
     const db = firebase.firestore()
 
     const getStockInfo = async () => {
-        console.log(user)
-        db.collection('stocks').doc(user.uid).collection("checklists").get().then((res) => {
-            const data = res.docs.map(doc => doc.data())
-            console.log(data)
-        })
+        let stock = stocks.filter(it => it.stockTicker == ticker).length == 0 ?
+            stocks.filter(it => it.stockTicker == ticker)[0] : null
+        if (!stock)
+            stock = await getStockInfoFromDatabase()
+        if (!stock) {
+            stock = await getStockInfoFromAPI()
+            stock.id = await insertStockToDB(stock)
+        }
+        dispatch(stocksActions.addNewStock(stock))
+        setStock(stock)
+        debugger;
+    }
 
+    /**
+     * Inserts a new stock to the database.
+     * @param {*} stock is the stock to insert.
+     * @returns - New document's id.
+     */
+    const insertStockToDB = async (stock) => {
+        try {
+            const doc = db.collection(collections.stocks).doc()
+            await doc.withConverter(stockConverter).set(stock)
+            return doc.id
+        } catch (ex) {
+            alert('insertStockToDB:' + '\n' + ex.message)
+        }
     }
 
     const getStockInfoFromDatabase = async () => {
-
+        const res = await db.collection(collections.stocks).withConverter(stockConverter)
+            .where("ticker", "==", ticker).get()
+        const data = res.docs.map(doc => doc.data())
+        return data.length == 0 ? null : data
     }
 
     const getStockInfoFromAPI = async () => {
@@ -45,17 +70,12 @@ export default function Home() {
                 'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
             }
         };
-        let stock
-        let financials
         const financialsResponse = await axios.request(options)
-        financials = financialsResponse.data
         options.url = `${HttpRequestsUrls.getStockStatisticsURL()}`
         const statisticsResponse = await axios.request(options)
-        stock = new Stock("", financials, statisticsResponse.data)
-        console.log(stock)
-        console.log(statisticsResponse)
-        dispatch(stocksActions.addNewStock(stock))
-        setStock(stock)
+        const financials = financialsResponse.data
+        const statistics = statisticsResponse.data
+        return new Stock("", ticker, financials, statistics)
     }
 
     const handleShowStockProjection = () => {
