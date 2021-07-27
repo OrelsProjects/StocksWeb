@@ -7,7 +7,7 @@ const HttpRequestsUrls = {
     getStockFinancialsURL: () =>
         `https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-financials`,
     getStockStatisticsURL: () =>
-        `https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics`
+        `https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-statistics`
 }
 
 module.exports = HttpRequestsUrls

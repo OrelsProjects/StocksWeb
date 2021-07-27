@@ -30,4 +30,12 @@ export default class Statistics {
         return this.statistics?.quoteType?.longName ? this.statistics.quoteType.longName : "No name"
     }
 
+    getProfitMargin(){
+        return this.statistics?.defaultKeyStatistics?.profitMargins?.raw * 100
+    }
+
+    getForwardPE(){
+        return this.statistics?.summaryDetail?.forwardPE?.raw
+    }
+
 }

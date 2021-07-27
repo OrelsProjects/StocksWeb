@@ -40,7 +40,8 @@ export default class Stock {
     }
 
     getProfitMargin() {
-        return this.getTTMEarnings() / this.getRevenue()
+        return this.statistics?.getProfitMargin() ?
+        this.statistics?.getProfitMargin() :  this.getTTMEarnings() / this.getRevenue()
     }
 
     getTotalDebt() {
@@ -51,5 +52,8 @@ export default class Stock {
         return this.statistics.getName()
     }
 
+    getForwardPE(){
+        return this.statistics.getForwardPE()
+    }
 
 }

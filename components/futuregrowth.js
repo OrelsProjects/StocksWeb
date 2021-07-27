@@ -8,7 +8,7 @@ const FutureGrowth = (props) => {
 
     const [years, setYears] = useState(5);
     const [annualGrowthRate, setAnnualGrowthRate] = useState(20);
-    const [futureShares, setFutureShares] = useState(659610000);
+    const [futureShares, setFutureShares] = useState(11111);
     const [futureProfitMargin, setFutureProfitMargin] = useState(10);
     const [futurePE, setFuturePE] = useState(90);
     const [futureRevenue, setFutureRevenue] = useState(0);
@@ -18,6 +18,10 @@ const FutureGrowth = (props) => {
     const [IRR, setIRR] = useState(0);
 
     function calculateValues() {
+        if(futureProfitMargin < 0) {
+            alert('Future profit margin cannot be less than 0')
+            return
+        }
         const newFutureShares = stock.getSharesOutstanding() * 1.05;
         const currentRevenue = stock.getRevenue();
         const newFutureRevenue =
@@ -36,6 +40,8 @@ const FutureGrowth = (props) => {
 
     function initInitialValues() {
         setFutureShares(stock.getSharesOutstanding())
+        setFutureProfitMargin(stock.getProfitMargin())
+        setFuturePE(stock.getForwardPE())
     }
 
     function calculateFutureRevenue() {
