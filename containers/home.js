@@ -38,24 +38,10 @@ export default function Home() {
             }
             dispatch(stocksActions.addNewStock(stock))
             setStock(stock)
+            debugger;
             setIsLoading(false)
         } catch (ex) {
             setIsLoading(false)
-        }
-    }
-
-    /**
-     * Inserts a new stock to the database.
-     * @param {*} stock is the stock to insert.
-     * @returns - New document's id.
-     */
-    const insertStockToDB = async (stock) => {
-        try {
-            const doc = db.collection(collections.stocks).doc()
-            await doc.withConverter(stockConverter).set(stock)
-            return doc.id
-        } catch (ex) {
-            alert('insertStockToDB:' + '\n' + ex.message)
         }
     }
 
@@ -82,6 +68,22 @@ export default function Home() {
         const financials = financialsResponse.data
         const statistics = statisticsResponse.data
         return new Stock("", ticker, financials, statistics)
+    }
+
+    
+    /**
+     * Inserts a new stock to the database.
+     * @param {*} stock is the stock to insert.
+     * @returns - New document's id.
+     */
+     const insertStockToDB = async (stock) => {
+        try {
+            const doc = db.collection(collections.stocks).doc()
+            await doc.withConverter(stockConverter).set(stock)
+            return doc.id
+        } catch (ex) {
+            alert('insertStockToDB:' + '\n' + ex.message)
+        }
     }
 
     const handleGetStockInfo = () => {
