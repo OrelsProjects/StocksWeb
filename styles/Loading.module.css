@@ -1,0 +1,15 @@
+.container{
+    height:100%;
+    width: 100%;
+    background-color: #2322255e;
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingContainer{
+    height:450px;
+    width:450px;
+}

@@ -15,9 +15,10 @@ export default function Login() {
   }
 
   return (
-    user ? <HomeContainer /> :
-      <div>
-        <LoginContainer completeLogin={completeLogin} />
-      </div>
+    <HomeContainer />
+    // user ? <HomeContainer /> :
+    //   <div>
+    //     <LoginContainer completeLogin={completeLogin} />
+    //   </div>
   )
 }

@@ -1,17 +1,17 @@
-import styles from '../styles/Home.module.css'
+import { Button, InputAdornment, TextField } from "@material-ui/core"
+import ShowChartIcon from '@material-ui/icons/ShowChart'
+import firebase from 'firebase'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as stocksActions from '../actions/stocks'
-import HttpRequestsUrls from '../utils/HttpRequestsUrls'
-import { TextField, Button, InputAdornment } from "@material-ui/core"
-import ShowChartIcon from '@material-ui/icons/ShowChart';
-import Stock from '../classes/stock/stock'
 import stockConverter from '../classes/stock/converter'
-import StockProjection from './stockprojection'
-import { useState } from 'react'
-import Login from './login'
-import firebase from 'firebase'
+import Stock from '../classes/stock/stock'
 import { collections } from '../constants'
-import { useEffect } from 'react'
+import styles from '../styles/Home.module.css'
+import HttpRequestsUrls from '../utils/HttpRequestsUrls'
+import Loading from './loading'
+import Login from './login'
+import StockProjection from './stockprojection'
 
 export default function Home() {
 
@@ -19,22 +19,29 @@ export default function Home() {
     const dispatch = useDispatch()
 
     const [showStockProjection, setShowStocksProjection] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [ticker, setTicker] = useState("DISCA")
     const [stock, setStock] = useState(null)
     const stocks = useSelector(reducers => reducers.stocks.stocks)
     const db = firebase.firestore()
 
     const getStockInfo = async () => {
-        let stock = stocks.filter(it => it.stockTicker == ticker).length == 0 ?
-            stocks.filter(it => it.stockTicker == ticker)[0] : null
-        if (!stock)
-            stock = await getStockInfoFromDatabase()
-        if (!stock) {
-            stock = await getStockInfoFromAPI()
-            stock.id = await insertStockToDB(stock)
+        try {
+            setIsLoading(true)
+            let stock = stocks.filter(it => it.stockTicker == ticker).length == 0 ?
+                stocks.filter(it => it.stockTicker == ticker)[0] : null
+            if (!stock)
+                stock = await getStockInfoFromDatabase()
+            if (!stock) {
+                stock = await getStockInfoFromAPI()
+                stock.id = await insertStockToDB(stock)
+            }
+            dispatch(stocksActions.addNewStock(stock))
+            setStock(stock)
+            setIsLoading(false)
+        } catch (ex) {
+            setIsLoading(false)
         }
-        dispatch(stocksActions.addNewStock(stock))
-        setStock(stock)
     }
 
     /**
@@ -89,15 +96,16 @@ export default function Home() {
         setTicker(event.target.value)
     }
 
-    useEffect(()=>{
-        if(stock){
+    useEffect(() => {
+        if (stock) {
             setShowStocksProjection(true)
         }
     }, [stock])
 
     return (
         <div className={`${styles.container}`}>
-            <Login />
+            {/* <Login /> */}
+            {isLoading ? <Loading /> : ""}
             {!showStockProjection ?
                 <TextField id="ticker" label="Ticker" variant="filled"
                     type='string'
