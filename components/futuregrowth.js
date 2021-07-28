@@ -18,7 +18,6 @@ const FutureGrowth = (props) => {
     const [IRR, setIRR] = useState(0);
 
     function calculateValues() {
-        const newFutureShares = stock.getSharesOutstanding() * 1.05;
         const currentRevenue = stock.getRevenue();
         const newFutureRevenue =
             currentRevenue * Math.pow(1 + annualGrowthRate / 100 / 1, 1 * years);
@@ -27,7 +26,6 @@ const FutureGrowth = (props) => {
         const newFutureEPS = newFutureEarnings / newFutureShares;
         const newFuturePrice = newFutureEPS * futurePE;
         const newIRR = Math.pow(newFuturePrice / stock.getPrice(), 1 / years) - 1;
-        setFutureShares(newFutureShares);
         setFutureRevenue(newFutureRevenue);
         setFutureEarnings(newFutureEarnings);
         setFutureEPS(newFutureEPS);
@@ -39,6 +37,7 @@ const FutureGrowth = (props) => {
         setFutureShares(stock.getSharesOutstanding())
         setFutureProfitMargin(stock.getProfitMargin())
         setFuturePE(stock.getForwardPE())
+        setFutureShares(stock.getSharesOutstanding() * 1.05)
     }
 
     function calculateFutureRevenue() {
@@ -105,7 +104,7 @@ const FutureGrowth = (props) => {
         initInitialValues()
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         calculateValues()
     }, [futureShares, futureProfitMargin, futurePE, years, annualGrowthRate, futureShares, futurePE])
 
