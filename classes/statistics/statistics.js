@@ -12,30 +12,43 @@ export default class Statistics {
     }
 
     getEPS() {
-        return this.statistics?.defaultKeyStatistics?.trailingEps.raw  ? 
-        this.statistics?.defaultKeyStatistics?.trailingEps.raw : 0
+        return this.statistics?.defaultKeyStatistics?.trailingEps.raw ?
+            this.statistics?.defaultKeyStatistics?.trailingEps.raw : 0
     }
 
     getSharesOutstanding() {
-        return this.statistics?.defaultKeyStatistics?.sharesOutstanding.raw ?
-        this.statistics?.defaultKeyStatistics?.sharesOutstanding.raw : 0
+        console.log(this.getEarnings() / this.statistics?.defaultKeyStatistics?.impliedSharesOutstanding?.raw)
+
+        return this.statistics?.defaultKeyStatistics?.impliedSharesOutstanding?.raw ?
+            this.statistics?.defaultKeyStatistics?.impliedSharesOutstanding?.raw : 0
     }
 
     getRevenue() {
-        return this.statistics?.financialData?.totalRevenue.raw ? 
-        this.statistics?.financialData?.totalRevenue.raw : 0
+        return this.statistics?.financialData?.totalRevenue.raw ?
+            this.statistics?.financialData?.totalRevenue.raw : 0
+    }
+
+    getEarnings() {
+        return this.getRevenue() * this.getProfitMargin()
     }
 
     getName() {
         return this.statistics?.quoteType?.longName ? this.statistics.quoteType.longName : "No name"
     }
 
-    getProfitMargin(){
+    getProfitMargin() {
         return this.statistics?.defaultKeyStatistics?.profitMargins?.raw * 100
     }
 
-    getForwardPE(){
+    getForwardPE() {
         return this.statistics?.summaryDetail?.forwardPE?.raw
     }
 
+    getEnterpriseValue() {
+        return this.statistics?.defaultKeyStatistics?.enterpriseValue?.raw
+    }
+
+    getFreeCashFlow() {
+        return this.statistics?.financialData?.freeCashflow?.raw
+    }
 }

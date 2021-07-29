@@ -18,6 +18,7 @@ const FutureGrowth = (props) => {
     const [minimumIRR, setMinimumIRR] = useState(15);
     const [IRR, setIRR] = useState(0);
     const [goodPrice, setGoodPrice] = useState(0);
+    const [freeCashFlowYield, setFreeCashFlowYield] = useState(0);
 
     function calculateValues() {
         const currentRevenue = stock.getRevenue();
@@ -40,7 +41,8 @@ const FutureGrowth = (props) => {
         setFutureShares(stock.getSharesOutstanding())
         setFutureProfitMargin(stock.getProfitMargin())
         setFuturePE(stock.getForwardPE())
-        setFutureShares(stock.getSharesOutstanding() * 1.05)
+        setFutureShares(stock.getSharesOutstanding())
+        setFreeCashFlowYield(stock.getFreeCashFlowYield())
     }
 
     function calculateFutureRevenue() {
@@ -123,6 +125,9 @@ const FutureGrowth = (props) => {
             </div>
             <div>
                 Price: {NumberUtils.numberToDollars(stock.getPrice())}
+            </div>
+            <div>
+                Current FCF Yield: {NumberUtils.numberToPercentage(freeCashFlowYield)}
             </div>
             <div className={`${styles.titleContainer}`}> Assumptions </div>
             <TextField

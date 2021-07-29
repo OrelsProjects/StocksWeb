@@ -30,8 +30,9 @@ export default function Home() {
             setIsLoading(true)
             let stock = stocks.filter(it => it.stockTicker == ticker).length == 0 ?
                 stocks.filter(it => it.stockTicker == ticker)[0] : null
-            if (!stock)
+            if (!stock) {
                 stock = await getStockInfoFromDatabase()
+            }
             if (!stock) {
                 stock = await getStockInfoFromAPI()
                 stock.id = await insertStockToDB(stock)
@@ -69,13 +70,13 @@ export default function Home() {
         return new Stock("", ticker, financials, statistics)
     }
 
-    
+
     /**
      * Inserts a new stock to the database.
      * @param {*} stock is the stock to insert.
      * @returns - New document's id.
      */
-     const insertStockToDB = async (stock) => {
+    const insertStockToDB = async (stock) => {
         try {
             const doc = db.collection(collections.stocks).doc()
             await doc.withConverter(stockConverter).set(stock)
@@ -113,7 +114,7 @@ export default function Home() {
                     onChange={handleTickerChange}
                     inputProps={{ style: { textTransform: "uppercase", color: "#dfdfdf" } }}
                     InputLabelProps={{
-                        style: {color: "#dfdfdf"},
+                        style: { color: "#dfdfdf" },
                         classes: {
                             root: styles.textFieldRoot,
                             focused: styles.textFieldFocused,
@@ -122,7 +123,7 @@ export default function Home() {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <ShowChartIcon style= {{color: "#dfdfdf"}}/>
+                                <ShowChartIcon style={{ color: "#dfdfdf" }} />
                             </InputAdornment>
                         ),
                     }}

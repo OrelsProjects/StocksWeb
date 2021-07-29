@@ -56,4 +56,15 @@ export default class Stock {
         return this.statistics.getForwardPE() ? this.statistics.getForwardPE() : 20
     }
 
+    getEnterpriseValue() {
+        return this.statistics.getEnterpriseValue() ? this.statistics.getEnterpriseValue() : 0
+    }
+
+    getFreeCashFlow() {
+        return this.statistics.getFreeCashFlow() ? this.statistics.getFreeCashFlow() : 1
+    }
+
+    getFreeCashFlowYield() {
+        return 1 / (this.getEnterpriseValue() / this.getFreeCashFlow())
+    }
 }
