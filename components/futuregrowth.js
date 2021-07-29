@@ -27,11 +27,7 @@ const FutureGrowth = (props) => {
         const newFutureEPS = newFutureEarnings / futureShares;
         const newFuturePrice = newFutureEPS * futurePE;
         const newIRR = Math.pow(newFuturePrice / stock.getPrice(), 1 / years) - 1;
-        // newIRR + 1 = Math.pow(newFuturePrice / stock.getPrice(), 1 / years)
-        // Math.pow((newIRR+1), years) = newFuturePrice/price
-        // newFuturePrice = Math.pow((newIRR+1), years) * price
-        // const goodPrice = stock.getPrice() * Math.pow(minimumIRR / 100 + 1, years)
-        const goodPrice = futurePrice / Math.pow(minimumIRR / 100 + 1, years)
+        const goodPrice = newFuturePrice / Math.pow(minimumIRR / 100 + 1, years)
         setFutureRevenue(newFutureRevenue);
         setFutureEarnings(newFutureEarnings);
         setFutureEPS(newFutureEPS);
