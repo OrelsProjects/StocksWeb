@@ -14,9 +14,9 @@ const StockProjection = (props) => {
                 <div className={`${styles.futureGrowthContainer}`}>
                     <FutureGrowth stock={stockToProject} />
                 </div>
-                <div className={`${styles.howMuchToGrowContainer} ${styles.modulesContainer}`}>
+                {/* <div className={`${styles.howMuchToGrowContainer} ${styles.modulesContainer}`}>
                     <HowMuchToGrow />
-                </div>
+                </div> */}
             </div>
         </div >
     )
