@@ -1,5 +1,3 @@
-
-
 /*
     const axios = require("axios").default;
 
@@ -13,7 +11,6 @@
       }
     };
 
-
     let stock
     let financials
     const financialsResponse = await axios.request(options)
@@ -21,4 +18,4 @@
     options.url = `${HttpRequestsUrls.getStockStatisticsURL()}`
     const statisticsResponse = await axios.request(options)
     stock = new Stock("FB", financials, statisticsResponse.data)
-    dispatch(stocksActions.addNewStock(stock))*/
+    dispatch(stocksActions.addNewStock(stock)) */

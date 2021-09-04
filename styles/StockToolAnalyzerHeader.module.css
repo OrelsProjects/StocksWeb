@@ -1,0 +1,11 @@
+.container {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(18, 107, 209);
+}
+
+.placeholder {
+    height: 100%;
+    width: 30%;
+    background-color: brown;
+}
