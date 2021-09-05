@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../styles/StockToolAnalyzerHeader.module.css';
+import styles from './StockToolAnalyzerHeader.module.css';
 import HeaderColumn from './HeaderColumn';
 
 export default function StockToolAnalyzerHeader({ columns }) {
@@ -10,7 +10,11 @@ export default function StockToolAnalyzerHeader({ columns }) {
     const headerColumnsArray = [];
     for (let i = 0; i < columns.length; i += 1) {
       headerColumnsArray.push(
-        <HeaderColumn mainTitle={columns[i].mainTitle} subTitles={columns[i].subTitles} />,
+        <HeaderColumn
+          mainTitle={columns[i].mainTitle}
+          subTitles={columns[i].subTitles}
+          width={`${100 / columns.length}%`} // 100% / [amount of columns]
+        />,
       );
     }
     setHeaderColumns(headerColumnsArray);
@@ -22,7 +26,8 @@ export default function StockToolAnalyzerHeader({ columns }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.placeholder}>
+      <div className={styles.placeholder} />
+      <div className={styles.headerColumnsContainer}>
         {headerColumns}
       </div>
     </div>
@@ -32,8 +37,13 @@ export default function StockToolAnalyzerHeader({ columns }) {
 StockToolAnalyzerHeader.defaultProps = {
   columns: [{
     mainTitle: 'Main Title',
-    subTitles: ['sub title1', 'sub title2', 'sub title3'],
-  }],
+    subTitles: ['1 year', '5 years', '10 years'],
+  },
+  {
+    mainTitle: 'My Assumptions',
+    subTitles: ['Low', 'Mid', 'High'],
+  },
+  ],
 };
 
 StockToolAnalyzerHeader.propTypes = {

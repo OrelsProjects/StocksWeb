@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import styles from './HeaderColumn.module.css';
 
-export default function HeaderColumn({ mainTitle, subTitles }) {
+export default function HeaderColumn({ mainTitle, subTitles, width }) {
   const [subTitlesComponents, setSubTitlesComponents] = useState([]);
 
   function setSubTitles() {
@@ -24,7 +24,7 @@ export default function HeaderColumn({ mainTitle, subTitles }) {
   }, [subTitles]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ width }}>
       <div className={styles.mainTitleContainer}>
         {mainTitle}
       </div>
@@ -39,9 +39,11 @@ export default function HeaderColumn({ mainTitle, subTitles }) {
 HeaderColumn.propTypes = {
   mainTitle: PropTypes.string,
   subTitles: PropTypes.arrayOf(PropTypes.string),
+  width: PropTypes.string,
 };
 
 HeaderColumn.defaultProps = {
   mainTitle: 'Main Title',
   subTitles: ['sub1', 'sub2', 'sub3'],
+  width: '50%',
 };
