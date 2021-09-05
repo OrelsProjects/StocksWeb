@@ -2,7 +2,7 @@
     position: relative;
     height: 100%;
     width: 100%;
-    margin: 0 20px;
+    padding: 0 10px
 }
 
 .mainTitleContainer {
@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     padding: 10px 0;
+    font-weight: bold;
 }
 
 .divider {

@@ -3,9 +3,16 @@
     width: 100%;
 }
 
-.header {
+.headerContainer {
     height: 10%;
     max-height: 150px;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.rowsContainer {
+    height: 8%;
+    max-height: 120px;
     width: 80%;
     max-width: 1000px;
 }

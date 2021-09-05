@@ -3,6 +3,7 @@
     height: 100%;
     width: 100%;
     background: linear-gradient(45deg, #084db3, #125fd1);
+    padding: 0 10px;
 }
 
 .placeholder {
