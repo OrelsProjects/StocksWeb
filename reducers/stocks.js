@@ -1,16 +1,16 @@
-import { ADD_NEW_STOCK } from '../actions/stocks'
+import { ADD_NEW_STOCK } from '../actions/stocks';
 
 const initialState = {
-    stocks: [],
-}
+  stocks: [],
+};
 
 const stocksReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ADD_NEW_STOCK:
-            return { ...state, stocks: action.stocks }
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case ADD_NEW_STOCK:
+      return { ...state, stocks: action.stocks };
+    default:
+      return state;
+  }
+};
 
-export default stocksReducer
+export default stocksReducer;

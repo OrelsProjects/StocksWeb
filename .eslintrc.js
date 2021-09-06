@@ -10,6 +10,8 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
+      sourceType: 'module',
+      ecmaVersion: 6,
     },
     ecmaVersion: 12,
     sourceType: 'module',
@@ -18,5 +20,6 @@ module.exports = {
     'react',
   ],
   rules: {
+    'linebreak-style': ['error', process.env.NODE_ENV === 'prod' ? 'unix' : 'windows'],
   },
 };

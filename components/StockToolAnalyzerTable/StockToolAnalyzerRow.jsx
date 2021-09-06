@@ -1,44 +1,12 @@
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { TextField } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import CustomInputBox from '../CustomInputBox';
 import styles from './StockToolAnalyzerRow.module.css';
 
 export default function StockToolAnalyzerRow({
   columns, groupWidth, columnsInGroupCount,
 }) {
   const [subTitlesGroups, setSubTitlesGroups] = useState([]);
-  const [column1Text, setColumn1Text] = useState('');
-  const [column2Text, setColumn2Text] = useState('');
-  const [column3Text, setColumn3Text] = useState('');
-  const [column4Text, setColumn4Text] = useState('');
-  const [column5Text, setColumn5Text] = useState('');
-  const [column6Text, setColumn6Text] = useState('');
-
-  const columnsUseStatesArray = [column1Text, column2Text, column3Text,
-    column4Text, column5Text, column6Text];
-
-  function onInputChange1(event) {
-    setColumn1Text(event.target.value);
-  }
-  function onInputChange2(event) {
-    console.log(event.target.value);
-    setColumn2Text(event.target.value);
-  }
-  function onInputChange3(event) {
-    setColumn3Text(event.target.value);
-  }
-  function onInputChange4(event) {
-    setColumn4Text(event.target.value);
-  }
-  function onInputChange5(event) {
-    setColumn5Text(event.target.value);
-  }
-  function onInputChange6(event) {
-    setColumn6Text(event.target.value);
-  }
-
-  const setColumnsUseStatesArray = [onInputChange1, onInputChange2, onInputChange3,
-    onInputChange4, onInputChange5, onInputChange6];
 
   function createSingleColumnsGroup(startIndex, endIndex) {
     const subTitlesGroup = [];
@@ -48,13 +16,10 @@ export default function StockToolAnalyzerRow({
         <div className={styles.singleColumn}>
           {columns.subTitles[i].isInput
             ? (
-              <TextField
-                id="ticker"
-                label="Years"
-                type="string"
-                // eslint-disable-next-line react/jsx-no-bind
-                onChange={onInputChange2}
-                value={column2Text}
+              <CustomInputBox
+                label="hi"
+                defaultValue={columns.subTitles[i].text}
+                onChange={columns.subTitles[i].onChange}
               />
             )
             : columns.subTitles[i].text}
@@ -85,7 +50,7 @@ export default function StockToolAnalyzerRow({
         {columns.mainTitle}
       </div>
       <div className={styles.groupsContainer}>
-        {subTitlesGroups }
+        {subTitlesGroups}
       </div>
     </div>
   );
@@ -97,7 +62,7 @@ StockToolAnalyzerRow.propTypes = {
     subTitles: PropTypes.arrayOf(PropTypes.shape({
       text: PropTypes.string,
       isInput: PropTypes.bool,
-      onInputChange: PropTypes.func,
+      onChange: PropTypes.func,
     })),
   }),
   // How many groups of subTitles are there.
@@ -112,17 +77,17 @@ StockToolAnalyzerRow.defaultProps = {
     subTitles: [{
       text: '50%',
       isInput: false,
-      onInputChange: () => {},
+      onInputChange: () => { },
     },
     {
       text: '10%',
       isInput: false,
-      onInputChange: () => {},
+      onInputChange: () => { },
     },
     {
       text: '5%',
       isInput: false,
-      onInputChange: () => {},
+      onInputChange: () => { },
     },
     {
       text: '30%',

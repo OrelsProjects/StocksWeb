@@ -3,7 +3,7 @@ import React from 'react';
 import StockToolAnalyzerHeader from '../components/StockToolAnalyzerTable/StockToolAnalyzerHeader';
 
 export default {
-  title: 'StockToolAnalyzerHeader',
+  title: 'StockToolAnalyzer/StockToolAnalyzerHeader',
   component: StockToolAnalyzerHeader,
 };
 

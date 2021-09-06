@@ -1,10 +1,12 @@
-import { combineReducers } from 'redux'
-import stocks from '../reducers/stocks'
-import auth from '../reducers/auth'
+import { combineReducers } from 'redux';
+import stocks from './stocks';
+import auth from './auth';
+import stockToolAnalyzer from './stockToolAnalyzer';
 
 const allReducers = combineReducers({
-    stocks,
-    auth
-})
+  stocks,
+  auth,
+  stockToolAnalyzer,
+});
 
-export default allReducers
+export default allReducers;
