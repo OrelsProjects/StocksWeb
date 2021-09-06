@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuid } from 'uuid';
 import styles from './StockToolAnalyzerHeader.module.css';
 import HeaderColumn from './HeaderColumn';
 
@@ -11,6 +12,7 @@ export default function StockToolAnalyzerHeader({ columns }) {
     for (let i = 0; i < columns.length; i += 1) {
       headerColumnsArray.push(
         <HeaderColumn
+          key={`header-column-${uuid()}`}
           mainTitle={columns[i].mainTitle}
           subTitles={columns[i].subTitles}
           width={`${100 / columns.length}%`} // 100% / [amount of columns]

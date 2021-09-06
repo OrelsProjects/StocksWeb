@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, InputAdornment } from '@material-ui/core';
 import { v4 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 import styles from './CustomInputBox.module.css';
 
-export default function CustomInputBox({ label, defaultValue, onChange }) {
-  const [textValue, setTextValue] = useState(defaultValue);
-
+export default function CustomInputBox({ label, defaultValue, onChange, isPercentage }) {
   const onTextChange = (event) => {
-    setTextValue(event.target.value);
     onChange(event);
   };
 
@@ -16,11 +13,13 @@ export default function CustomInputBox({ label, defaultValue, onChange }) {
     <div className={styles.container}>
       <TextField
         id={`outlined-input-${uuid()}`}
-        label={label}
-        value={textValue}
+        label={label ? null : label}
         onChange={onTextChange}
         variant="outlined"
         defaultValue={defaultValue}
+        InputProps={isPercentage ? {
+          startAdornment: <InputAdornment position="start">%</InputAdornment>,
+        } : null}
       />
     </div>
   );
@@ -30,9 +29,11 @@ CustomInputBox.propTypes = {
   label: PropTypes.string,
   defaultValue: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  isPercentage: PropTypes.bool,
 };
 
 CustomInputBox.defaultProps = {
-  label: 'label',
+  label: '',
   defaultValue: 'default value',
+  isPercentage: true,
 };

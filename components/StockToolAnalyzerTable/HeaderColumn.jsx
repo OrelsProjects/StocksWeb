@@ -16,7 +16,6 @@ export default function HeaderColumn({ mainTitle, subTitles, width }) {
       )
     ));
     setSubTitlesComponents(subTitlesArray);
-    console.log(subTitlesArray);
   }
 
   useEffect(() => {
