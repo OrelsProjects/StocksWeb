@@ -114,7 +114,6 @@ export default function Home() {
             variant="filled"
             type="string"
             onChange={handleTickerChange}
-            inputProps={{ style: { textTransform: 'uppercase', color: '#dfdfdf' } }}
             InputLabelProps={{
               style: { color: '#dfdfdf' },
               classes: {
@@ -123,6 +122,7 @@ export default function Home() {
               },
             }}
             InputProps={{
+              style: { textTransform: 'uppercase', color: '#dfdfdf' },
               startAdornment: (
                 <InputAdornment position="start">
                   <ShowChartIcon style={{ color: '#dfdfdf' }} />

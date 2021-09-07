@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StockToolAnalyzerHeader from '../components/StockToolAnalyzerTable/StockToolAnalyzerHeader';
+import StockToolAnalyzerHeader from '../components/StockToolAnalyzer/StockToolAnalyzerHeader';
 
 export default {
   title: 'StockToolAnalyzer/StockToolAnalyzerHeader',

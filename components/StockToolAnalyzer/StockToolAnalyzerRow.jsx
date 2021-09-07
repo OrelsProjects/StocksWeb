@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import CustomInputBox from '../CustomInputBox';
+import CustomInputBox from '../Customs/CustomInputBox';
 import styles from './StockToolAnalyzerRow.module.css';
 
 export default function StockToolAnalyzerRow({

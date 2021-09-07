@@ -1,8 +1,8 @@
 import React from 'react';
-import InputBox from '../components/CustomInputBox';
+import InputBox from '../components/Customs/CustomInputBox';
 
 export default {
-  title: 'General/InputBox',
+  title: 'StockToolAnalyzer/InputBox',
   component: InputBox,
 };
 

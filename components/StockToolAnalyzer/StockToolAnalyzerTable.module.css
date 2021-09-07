@@ -1,0 +1,21 @@
+.container {
+    height: 100%;
+    width: 100%;
+}
+
+.headerContainer {
+    height: 10%;
+    min-height: 80px;
+    max-height: 90px;
+    /* max-height: 150px; */
+    width: 100%;
+    /* max-width: 1500px; */
+}
+
+.rowsContainer {
+    height: auto;
+    /* max-height: 120px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
