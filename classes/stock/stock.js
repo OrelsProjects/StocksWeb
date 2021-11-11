@@ -7,10 +7,12 @@ export default class Stock {
     ticker,
     financials,
     statistics,
+    name
   ) {
     this.ticker = ticker;
     this.financials = new Financials(financials);
     this.statistics = new Statistics(statistics);
+    this.name = name;
   }
 
   getTTMEarnings() {

@@ -15,7 +15,8 @@ const Converter = {
             stock.id,
             stock.ticker,
             JSON.parse(stock.financials).financials,
-            JSON.parse(stock.statistics).statistics
+            JSON.parse(stock.statistics).statistics,
+            stock.name,
         );
     }
 };
