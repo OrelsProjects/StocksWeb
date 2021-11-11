@@ -11,6 +11,7 @@ import styles from '../styles/Home.module.css';
 import HttpRequestsUrls from '../utils/HttpRequestsUrls';
 import Loading from './loading';
 import StockProjection from './stockprojection';
+import Head from 'next/head';
 
 const axios = require('axios').default;
 
@@ -104,6 +105,11 @@ export default function Home() {
 
   return (
     <div className={`${styles.container}`}>
+      <Head>
+        <title>
+          Stocks Analyzer
+        </title>
+      </Head>
       {/* <Login /> */}
       {isLoading ? <Loading /> : ''}
       {!showStockProjection
