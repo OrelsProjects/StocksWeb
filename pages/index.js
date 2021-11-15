@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import LoginContainer from '../containers/login';
 import HomeContainer from '../containers/home';
@@ -14,11 +15,10 @@ export default function Login() {
   };
 
   return (
-    <HomeContainer >
-      </HomeContainer>
-    // user ? <HomeContainer /> :
-    //   <div>
-    //     <LoginContainer completeLogin={completeLogin} />
-    //   </div>
+    // <HomeContainer/>
+    user ? <HomeContainer /> :
+      <div>
+        <LoginContainer completeLogin={completeLogin} />
+      </div>
   );
 }

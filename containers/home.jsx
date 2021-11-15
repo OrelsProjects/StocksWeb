@@ -12,6 +12,7 @@ import HttpRequestsUrls from '../utils/HttpRequestsUrls';
 import Loading from './loading';
 import StockProjection from './stockprojection';
 import Head from 'next/head';
+import Portfolio from './Portfolio';
 
 const axios = require('axios').default;
 
@@ -144,6 +145,7 @@ export default function Home() {
           <StockProjection onBackClick={handleHideStockProjection} stock={stock} />
         </div>
       ) : ''}
+      <Portfolio></Portfolio>
     </div>
   );
 }

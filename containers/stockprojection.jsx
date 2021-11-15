@@ -36,7 +36,6 @@ const StockProjection = ({ ticker, onBackClick }) => {
 
   useEffect(async () => {
     if (ticker && !stocks[ticker]) {
-      debugger;
       const stock = await getStockInfoFromAPI(ticker.toString().toUpperCase());
       dispatch(stocksActions.addNewStock(stock));
       setStock(stock);
@@ -46,7 +45,7 @@ const StockProjection = ({ ticker, onBackClick }) => {
   return (
     <div className={`${styles.container}`}>
       <Head>
-        <title>{stock ? stock.name : 'loading...'}</title>
+        <title>{stock ? stock.name : 'Loading...'}</title>
       </Head>
       <div className={`${styles.backArrow}`} onClick={onBackClick}>
         <ArrowBack style={{ color: '#dfdfdf' }} />

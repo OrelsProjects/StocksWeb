@@ -4,6 +4,7 @@ import 'firebase/auth';
 import {
   TextField, Button, InputAdornment,
 } from '@material-ui/core';
+import User from '../classes/user';
 import { Email, Lock } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import Lottie from 'react-lottie';
@@ -52,11 +53,10 @@ export default function Login() {
   };
 
   useEffect(() => {
-    firebaseApp.auth().signOut();
     window.addEventListener('keyup', handleKeyUp);
-    firebaseApp.auth().onAuthStateChanged((newUser) => {
-      if (newUser) {
-        dispatch(authActions.login({ user: newUser }));
+    firebaseApp.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        dispatch(authActions.login({ user: new User(user) }));
       }
     });
     return () => {
@@ -75,28 +75,28 @@ export default function Login() {
   async function handleGoogleLogin() {
     const provider = new firebaseApp.auth.GoogleAuthProvider();
     await
-    //  firebaseApp.auth().signInWithEmailAndPassword(email, password)
-    firebaseApp.auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        /** @type {firebase.auth.OAuthCredential} */
-        const { credential } = result;
+      //  firebaseApp.auth().signInWithEmailAndPassword(email, password)
+      firebaseApp.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          /** @type {firebase.auth.OAuthCredential} */
+          const { credential } = result;
 
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const { user } = result;
-        // ...
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const { email } = error;
-        // The firebase.auth.AuthCredential type that was used.
-        const { credential } = error;
-        alert(`error: ${error.message}`);
-      });
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const { user } = result;
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const { email } = error;
+          // The firebase.auth.AuthCredential type that was used.
+          const { credential } = error;
+          alert(`error: ${error.message}`);
+        });
   }
 
   function handleChangeEmail(event) {
