@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3002",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3003",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -32,6 +32,7 @@
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
     "storybook": "^6.3.8",
+    "styled-component": "^2.8.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
