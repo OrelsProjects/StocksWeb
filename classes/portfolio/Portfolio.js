@@ -1,6 +1,10 @@
-
 export default class Portfolio {
-    constructor(potfolio) {
-
+    constructor(portfolio) {
+        this.portfolio = portfolio;
     }
+    
+    getStockAverageCostBasis(ticker) {
+        
+    }
+
 }

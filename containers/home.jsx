@@ -111,8 +111,7 @@ export default function Home() {
           Stocks Analyzer
         </title>
       </Head>
-      {/* <Login /> */}
-      {isLoading ? <Loading /> : ''}
+      {/* {isLoading ? <Loading /> : ''}
       {!showStockProjection
         ? (
           <TextField
@@ -144,7 +143,7 @@ export default function Home() {
         <div className={`${styles.stockProjectionContainer}`}>
           <StockProjection onBackClick={handleHideStockProjection} stock={stock} />
         </div>
-      ) : ''}
+      ) : ''} */}
       <Portfolio></Portfolio>
     </div>
   );

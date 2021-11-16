@@ -3,4 +3,5 @@ export const collections = {
     stocks: "stocks",
     companies: "companies",
     checklists: "checklists",
+    portfolio: "portfolio"
 }
