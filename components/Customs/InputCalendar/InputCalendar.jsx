@@ -20,13 +20,11 @@ export default function InputCalendar({ defaultValue, onChange, label }) {
 
 InputCalendar.defaultProps = {
   defaultValue: '',
-  placeHolder: '',
   label: '',
 };
 
 InputCalendar.propTypes = {
   defaultValue: PropTypes.string,
-  placeHolder: PropTypes.string,
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
