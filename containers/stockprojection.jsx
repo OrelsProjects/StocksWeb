@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowBack } from '@material-ui/icons';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import Head from 'next/head';
 import styles from '../styles/StockProjection.module.css';
 import * as stocksActions from '../actions/stocks';
 import FutureGrowth from '../components/futuregrowth';
-import { useSelector, useDispatch } from 'react-redux';
 import Stock from '../classes/stock/stock';
 import HttpRequestsUrls from '../utils/HttpRequestsUrls';
-import axios from 'axios';
-import Head from 'next/head';
-
 
 const StockProjection = ({ ticker, onBackClick }) => {
   const stocks = useSelector((reducers) => reducers.stocks.stocks);
@@ -40,7 +39,7 @@ const StockProjection = ({ ticker, onBackClick }) => {
       dispatch(stocksActions.addNewStock(stock));
       setStock(stock);
     }
-  }, [ticker])
+  }, [ticker]);
 
   return (
     <div className={`${styles.container}`}>

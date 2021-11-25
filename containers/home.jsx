@@ -144,7 +144,7 @@ export default function Home() {
           <StockProjection onBackClick={handleHideStockProjection} stock={stock} />
         </div>
       ) : ''} */}
-      <Portfolio></Portfolio>
+      <Portfolio />
     </div>
   );
 }
