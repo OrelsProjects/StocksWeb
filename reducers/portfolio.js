@@ -1,20 +1,22 @@
-import { ADD as ADD_STOCK, CREATE, DELETE } from '../actions/portfolio';
+import { ADD_STOCK, CREATE, DELETE, ADD_PURCHASE } from '../actions/portfolio';
 
 const initialState = {
-    portfolio: null,
+  portfolio: null,
 };
 
 const portfolioReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ADD_STOCK:
-            return { ...state, user: action.user };
-        case CREATE:
-            return { ...state, user: action.portfolio };
-        case DELETE:
-            return { ...state, portfolio: null }
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case ADD_STOCK:
+      return { ...state, portfolio: state.portfolio.addStock(action.stock) };
+    case ADD_PURCHASE:
+      return { ...state, portfolio: state.portfolio.addPurchase(action.stock) };
+    case CREATE:
+      return { ...state, portfolio: action.portfolio };
+    case DELETE:
+      return { ...state, portfolio: null };
+    default:
+      return state;
+  }
 };
 
 export default portfolioReducer;
