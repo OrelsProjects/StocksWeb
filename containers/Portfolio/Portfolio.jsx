@@ -20,11 +20,11 @@ export default function Portfolio() {
       <S.StockRowsContainer>
         <Link href="/stock/BYND">
           <S.StockRow>
-            <StockRow stock={new Stock(null, 'MTVS', null, null, 'Meta, Inc.')} />
+            <StockRow stock={new Stock(null, 'MVRS', null, null, 'Meta, Inc.')} />
           </S.StockRow>
         </Link>
       </S.StockRowsContainer>
-      <Link href="/addStock">
+      <Link href="/addstock/MVRS">
         <IconButton variant="contained" color="primary">
           <AddIcon color="#5f2699" />
         </IconButton>
