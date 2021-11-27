@@ -1,7 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
-const Text = styled.span`
-font-size: 20px;
-color: #121212;
+export const Text = styled.div`
+  font-size: ${({ size }) => size};
+  font-weight: ${({ bold }) => (bold ? '600' : '400')};
+  font-family: sans-serif;
+  color: ${({ color }) => (color || '#000000')}
 `;
-export default Text;

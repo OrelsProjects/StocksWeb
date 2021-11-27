@@ -38,14 +38,32 @@ font-weight: bold;
 color: #fdfdfd;
 `;
 
-export const OptionsArrow = styled.div`
-height:5px;
-width:5px;
-background: white;
+export const Options = styled.div`
+height:auto;
+width:auto;
+display: flex;
+flex-direction: column;
+direction: rtl;
 position:absolute;
 top:0;
 right:0;
-margin: 8px;
+`;
+export const OptionsArrow = styled.div`
+color: #dfdfdf;
+font-size: 18px
+`;
+
+export const OptionsDropdown = styled.div`
+background: #2d2b2b;
+radius: 4px;
+`;
+export const OptionsDropdownAction = styled.div`
+color: #dfdfdf;
+padding: 8px;
+user-selection: none;
+&:hover {
+  background: #424242;
+}
 `;
 
 export const StockTickerLoading = styled.div``;

@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@mui/icons-material/Add';
 import PropTypes from 'prop-types';
+import { ArrowBack } from '@material-ui/icons';
+import Link from 'next/link';
 import * as S from './style';
 import Input from '../../../components/Customs/Input';
 import dateUtils from '../../../utils/dateUtills';
@@ -11,7 +13,6 @@ import Text from '../../../components/Customs/Text';
 
 // eslint-disable-next-line no-unused-vars
 export default function AddStock({ ticker, portfolioId }) {
-  console.log(ticker);
   const [shares, setShares] = useState(0);
   const [price, setPrice] = useState(0);
   const [date, setDate] = useState(dateUtils.formatDate(new Date()));
@@ -27,7 +28,14 @@ export default function AddStock({ ticker, portfolioId }) {
       <Head>
         <title>Add Stock</title>
       </Head>
-      {ticker}
+      <Link href="/portfolio">
+        <S.BackArrow>
+          <ArrowBack style={{ color: '#dfdfdf' }} />
+        </S.BackArrow>
+      </Link>
+      <Text>
+        {ticker}
+      </Text>
       <Input
         label="Shares"
         placeHolder="Shares"
