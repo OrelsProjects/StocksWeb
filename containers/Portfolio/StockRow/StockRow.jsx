@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Stock from '../../../classes/stock/stock';
 import * as S from './style';
 
 export default function StockRow({ stock }) {
+  const [showActionsArrow, setShowActionsArrow] = useState(false);
+
   return (
-    <S.StockRow>
+    <S.StockRow
+      onMouseEnter={() => { console.log('hover'); setShowActionsArrow(true); }}
+      onMouseLeave={() => setShowActionsArrow(false)}
+    >
       <S.StockTicker>
         {stock.ticker}
       </S.StockTicker>
@@ -15,14 +20,11 @@ export default function StockRow({ stock }) {
       <S.StockPrice>
         {stock.getPrice()}
       </S.StockPrice>
+      {showActionsArrow ? <S.OptionsArrow /> : ''}
     </S.StockRow>
   );
 }
 
-StockRow.defaultProps = {
-  stock: new Stock(null, 'MTVS', null, null, 'Meta, Inc.'),
-};
-
 StockRow.propTypes = {
-  stock: PropTypes.objectOf(Stock),
+  stock: PropTypes.objectOf(Stock).isRequired,
 };

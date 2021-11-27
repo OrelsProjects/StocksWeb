@@ -10,7 +10,7 @@ import InputCalendar from '../../../components/Customs/InputCalendar';
 import Text from '../../../components/Customs/Text';
 
 // eslint-disable-next-line no-unused-vars
-export default function AddStock({ ticker }) {
+export default function AddStock({ ticker, portfolioId }) {
   console.log(ticker);
   const [shares, setShares] = useState(0);
   const [price, setPrice] = useState(0);
@@ -52,15 +52,11 @@ export default function AddStock({ ticker }) {
       >
         <AddIcon color="#5f2699" />
       </IconButton>
-
     </S.AddStock>
   );
 }
 
-AddStock.defaultProps = {
-  ticker: 'MVRS',
-};
-
 AddStock.propTypes = {
-  ticker: PropTypes.string,
+  ticker: PropTypes.string.isRequired,
+  portfolioId: PropTypes.string.isRequired,
 };

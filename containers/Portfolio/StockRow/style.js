@@ -8,7 +8,8 @@ background: #212121;
 display: grid;
 grid-template-columns: 1fr 2.5fr 1fr;
 grid-template-rows: 1fr 1.61fr;
-padding: 8px;`;
+padding: 8px;
+`;
 export const StockTicker = styled.div`
 grid-row: 1;
 grid-column: 1;
@@ -34,6 +35,13 @@ align-self: center;
 font-size: 24px;
 font-weight: bold;
 color: #fdfdfd;
+`;
+
+export const OptionsArrow = styled.div`
+position:absolute;
+top:0;
+right:0;
+margin: 16px;
 `;
 
 export const StockTickerLoading = styled.div``;

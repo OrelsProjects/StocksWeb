@@ -1,9 +1,10 @@
 export default class Portfolio {
   constructor(portfolio) {
-    this.portfolio = portfolio;
+    this.id = portfolio.id;
+    this.name = portfolio.name;
+    this.purchases = portfolio.purchases;
   }
 
-  //   getStockAverageCostBasis(ticker) {}
   addStock(stock) {
     // todo add purchase
     return this;
