@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StockRow = styled.div`
+position:relative;
 width: 100%;
 min-height: 75px;
 max-height: 100%;
@@ -38,10 +39,13 @@ color: #fdfdfd;
 `;
 
 export const OptionsArrow = styled.div`
+height:5px;
+width:5px;
+background: white;
 position:absolute;
 top:0;
 right:0;
-margin: 16px;
+margin: 8px;
 `;
 
 export const StockTickerLoading = styled.div``;
