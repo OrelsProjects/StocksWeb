@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 3002",
     "build": "next build",
     "start": "next start -p 3003",
     "storybook": "start-storybook -p 6006",
@@ -17,7 +17,7 @@
     "@mui/icons-material": "^5.1.1",
     "@mui/lab": "^5.0.0-alpha.57",
     "@mui/material": "^5.1.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "firebase": "^8.6.7",
     "firebase-admin": "^9.9.0",
     "i": "^0.3.6",

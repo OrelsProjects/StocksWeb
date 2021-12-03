@@ -43,7 +43,6 @@ export default function StockRow({ stock }) {
                 <S.OptionsDropdownAction
                   onClick={(event) => {
                     event.preventDefault();
-                    console.log('lol');
                   }}
                 >
                   <Link href="addstock/MVRS">

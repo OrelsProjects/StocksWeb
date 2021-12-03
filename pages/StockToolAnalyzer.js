@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import StockToolAnalyzerContainer from '../containers/StockToolAnalyzerContainer';
 import styles from '../styles/StockToolAnalyzer.module.css';
@@ -9,3 +10,5 @@ export default function StockToolAnalyzer() {
     </div>
   );
 }
+
+// module.exports = StockToolAnalyzer;

@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-filename-extension */
+
 import React from 'react';
 import { useRouter } from 'next/router';
 import StockProjection from '../../containers/stockprojection';
