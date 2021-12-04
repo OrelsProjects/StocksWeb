@@ -8,10 +8,11 @@ export default function Text({
   children,
   bold,
   color,
+  center,
 }) {
   return (
     <Typography>
-      <S.Text size={size} bold={bold} color={color}>
+      <S.Text size={size} bold={bold} color={color} center={center}>
         {children}
       </S.Text>
     </Typography>
@@ -23,6 +24,7 @@ Text.defaultProps = {
   children: '',
   bold: false,
   color: '#000000',
+  center: false,
 };
 
 Text.propTypes = {
@@ -30,4 +32,5 @@ Text.propTypes = {
   children: PropTypes.node,
   bold: PropTypes.bool,
   color: PropTypes.string,
+  center: PropTypes.bool,
 };

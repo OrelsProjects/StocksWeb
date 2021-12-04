@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import firebaseApp from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/auth';
 import {
   TextField, Button, InputAdornment,
 } from '@material-ui/core';
-import User from '../classes/user';
 import { Email, Lock } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import Lottie from 'react-lottie';
+import User from '../classes/user';
 import styles from '../styles/Login.module.css';
 import stocksLottie from '../assets/lotties/stocks-login.json';
 import * as authActions from '../actions/auth';
 import firebaseClient from '../firebaseClient';
+import { collections } from '../constants';
 
 export default function Login() {
   firebaseClient();
@@ -54,9 +56,9 @@ export default function Login() {
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyUp);
-    firebaseApp.auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        dispatch(authActions.login({ user: new User(user) }));
+    firebaseApp.auth().onAuthStateChanged(async (res) => {
+      if (res) {
+        dispatch(authActions.login({ user: new User(res) }));
       }
     });
     return () => {
@@ -65,7 +67,8 @@ export default function Login() {
   }, [password, email]);
 
   async function handleRegister() {
-    await firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(() => {
+    await firebaseApp.auth().createUserWithEmailAndPassword(email, password).then((res) => {
+      firebase.firestore().collection(collections.users).doc(res.uid);
       alert(`user created! ${email}`);
     }).catch((error) => {
       alert(`error: ${error.message}`);
@@ -75,28 +78,28 @@ export default function Login() {
   async function handleGoogleLogin() {
     const provider = new firebaseApp.auth.GoogleAuthProvider();
     await
-      //  firebaseApp.auth().signInWithEmailAndPassword(email, password)
-      firebaseApp.auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          /** @type {firebase.auth.OAuthCredential} */
-          const { credential } = result;
+    //  firebaseApp.auth().signInWithEmailAndPassword(email, password)
+    firebaseApp.auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+        const { credential } = result;
 
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const token = credential.accessToken;
-          // The signed-in user info.
-          const { user } = result;
-          // ...
-        }).catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const { email } = error;
-          // The firebase.auth.AuthCredential type that was used.
-          const { credential } = error;
-          alert(`error: ${error.message}`);
-        });
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const { user } = result;
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const { email } = error;
+        // The firebase.auth.AuthCredential type that was used.
+        const { credential } = error;
+        alert(`error: ${error.message}`);
+      });
   }
 
   function handleChangeEmail(event) {

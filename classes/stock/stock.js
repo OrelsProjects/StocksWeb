@@ -7,7 +7,7 @@ export default class Stock {
     ticker,
     financials,
     statistics,
-    name
+    name,
   ) {
     this.ticker = ticker;
     this.financials = new Financials(financials);

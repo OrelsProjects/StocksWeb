@@ -35,7 +35,6 @@ export default function AddStock({ ticker, portfolioId }) {
       method: 'POST',
       body: JSON.stringify({ purchase: JSON.stringify(purchase), portfolioId: `${portfolioId}`, uid: user.uid }),
     });
-    debugger;
     //   axios.request(addStockOptions).then((res) => {
     //     debugger;
     //   }, (err) => {
