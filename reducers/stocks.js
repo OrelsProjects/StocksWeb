@@ -1,13 +1,15 @@
 import { ADD_NEW_STOCK } from '../actions/stocks';
 
 const initialState = {
-  stocks: [],
+  stocks: {},
 };
 
 const stocksReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_NEW_STOCK:
-      return { ...state, stocks: action.stocks };
+      const stocksJson = { ...action.stock }
+      stocksJson[action.stock.ticker] = action.stock
+      return { ...state, stocks: stocksJson };
     default:
       return state;
   }

@@ -3,6 +3,7 @@ import { Button, InputAdornment, TextField } from '@material-ui/core';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
+import Head from 'next/head';
 import * as stocksActions from '../actions/stocks';
 import stockConverter from '../classes/stock/converter';
 import Stock from '../classes/stock/stock';
@@ -51,16 +52,17 @@ export default function Home() {
 
   /**
      * Inserts a new stock to the database.
-     * @param {*} stock is the stock to insert.
+     * @param {*} stockToInsert is the stock to insert.
      * @returns - New document's id.
      */
-  const insertStockToDB = async (stock) => {
+  const insertStockToDB = async (stockToInsert) => {
     try {
       const doc = db.collection(collections.stocks).doc();
-      await doc.withConverter(stockConverter).set(stock);
+      await doc.withConverter(stockConverter).set(stockToInsert);
       return doc.id;
     } catch (ex) {
-      alert(`${'insertStockToDB:' + '\n'}${ex.message}`);
+      alert(`${'insertStockToDB:'}\n${ex.message}`);
+      return null;
     }
   };
 
@@ -104,6 +106,11 @@ export default function Home() {
 
   return (
     <div className={`${styles.container}`}>
+      <Head>
+        <title>
+          Stocks Analyzer
+        </title>
+      </Head>
       {/* <Login /> */}
       {isLoading ? <Loading /> : ''}
       {!showStockProjection
