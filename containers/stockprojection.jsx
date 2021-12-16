@@ -1,15 +1,17 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
 import { ArrowBack } from '@material-ui/icons';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import Head from 'next/head';
 import styles from '../styles/StockProjection.module.css';
 import * as stocksActions from '../actions/stocks';
 import FutureGrowth from '../components/futuregrowth';
-import { useSelector, useDispatch } from 'react-redux';
 import Stock from '../classes/stock/stock';
 import HttpRequestsUrls from '../utils/HttpRequestsUrls';
-import axios from 'axios';
-import Head from 'next/head';
-
+import Loading from '../components/Customs/Loading';
 
 const StockProjection = ({ ticker, onBackClick }) => {
   const stocks = useSelector((reducers) => reducers.stocks.stocks);
@@ -36,17 +38,26 @@ const StockProjection = ({ ticker, onBackClick }) => {
 
   useEffect(async () => {
     if (ticker && !stocks[ticker]) {
-      debugger;
-      const stock = await getStockInfoFromAPI(ticker.toString().toUpperCase());
-      dispatch(stocksActions.addNewStock(stock));
-      setStock(stock);
+      const res = await getStockInfoFromAPI(ticker.toString().toUpperCase());
+      dispatch(stocksActions.addNewStock(res));
+      setStock(res);
     }
-  }, [ticker])
+  }, [ticker]);
 
+  if (stock === null) {
+    return (
+      <Loading text={
+        `Getting
+        ${ticker}
+        data...`
+      }
+      />
+    );
+  }
   return (
     <div className={`${styles.container}`}>
       <Head>
-        <title>{stock ? stock.name : 'loading...'}</title>
+        <title>{stock ? stock.name : 'Loading...'}</title>
       </Head>
       <div className={`${styles.backArrow}`} onClick={onBackClick}>
         <ArrowBack style={{ color: '#dfdfdf' }} />
@@ -63,6 +74,6 @@ const StockProjection = ({ ticker, onBackClick }) => {
 module.exports = StockProjection;
 
 StockProjection.propTypes = {
-  stock: PropTypes.objectOf.isRequired,
+  ticker: PropTypes.string.isRequired,
   onBackClick: PropTypes.func.isRequired,
 };

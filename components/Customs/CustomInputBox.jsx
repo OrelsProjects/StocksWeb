@@ -4,7 +4,9 @@ import { v4 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 import styles from './CustomInputBox.module.css';
 
-export default function CustomInputBox({ label, defaultValue, onChange, isPercentage }) {
+export default function CustomInputBox({
+  label, defaultValue, onChange, isPercentage,
+}) {
   const onTextChange = (event) => {
     onChange(event);
   };

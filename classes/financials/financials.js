@@ -38,7 +38,7 @@ export default class Financials {
     }
 
     getPrice() {
-        return this.financials.price.regularMarketPrice.raw
+        return this?.financials?.price?.regularMarketPrice?.raw ? this.financials.price.regularMarketPrice.raw : -1
     }
 
     getMarketCap() {

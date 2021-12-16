@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebaseApp from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/auth';
 import {
   TextField, Button, InputAdornment,
@@ -7,10 +8,12 @@ import {
 import { Email, Lock } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import Lottie from 'react-lottie';
+import User from '../classes/user';
 import styles from '../styles/Login.module.css';
 import stocksLottie from '../assets/lotties/stocks-login.json';
 import * as authActions from '../actions/auth';
 import firebaseClient from '../firebaseClient';
+import { collections } from '../constants';
 
 export default function Login() {
   firebaseClient();
@@ -52,11 +55,10 @@ export default function Login() {
   };
 
   useEffect(() => {
-    firebaseApp.auth().signOut();
     window.addEventListener('keyup', handleKeyUp);
-    firebaseApp.auth().onAuthStateChanged((newUser) => {
-      if (newUser) {
-        dispatch(authActions.login({ user: newUser }));
+    firebaseApp.auth().onAuthStateChanged(async (res) => {
+      if (res) {
+        dispatch(authActions.login({ user: new User(res) }));
       }
     });
     return () => {
@@ -65,7 +67,8 @@ export default function Login() {
   }, [password, email]);
 
   async function handleRegister() {
-    await firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(() => {
+    await firebaseApp.auth().createUserWithEmailAndPassword(email, password).then((res) => {
+      firebase.firestore().collection(collections.users).doc(res.uid);
       alert(`user created! ${email}`);
     }).catch((error) => {
       alert(`error: ${error.message}`);

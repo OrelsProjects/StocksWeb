@@ -1,24 +1,15 @@
+/* eslint-disable react/jsx-filename-extension */
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import LoginContainer from '../containers/login';
-import HomeContainer from '../containers/home';
+import Router from 'next/router';
 
 export default function Login() {
   const user = useSelector((reducers) => reducers.auth.user);
-  const initFirebase = () => {
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-  };
 
-  const completeLogin = () => {
-
-  };
-
+  useEffect(() => {
+    Router.push('login');
+  }, [user]);
   return (
-    <HomeContainer >
-      </HomeContainer>
-    // user ? <HomeContainer /> :
-    //   <div>
-    //     <LoginContainer completeLogin={completeLogin} />
-    //   </div>
+    <div />
   );
 }

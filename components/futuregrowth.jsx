@@ -20,12 +20,12 @@ const FutureGrowth = ({ stock }) => {
 
   function calculateValues() {
     const currentRevenue = stock.getRevenue();
-    const newFutureRevenue = currentRevenue * Math.pow(1 + annualGrowthRate / 100 / 1, 1 * years);
+    const newFutureRevenue = currentRevenue * (1 + annualGrowthRate / 100 / 1) ** (1 * years);
     const newFutureEarnings = newFutureRevenue * (futureProfitMargin / 100);
     const newFutureEPS = newFutureEarnings / futureShares;
     const newFuturePrice = newFutureEPS * futurePE;
-    const newIRR = Math.pow(newFuturePrice / stock.getPrice(), 1 / years) - 1;
-    const goodPrice = newFuturePrice / Math.pow(minimumIRR / 100 + 1, years);
+    const newIRR = (newFuturePrice / stock.getPrice()) ** (1 / years) - 1;
+    const goodPrice = newFuturePrice / (minimumIRR / 100 + 1) ** years;
     setFutureRevenue(newFutureRevenue);
     setFutureEarnings(newFutureEarnings);
     setFutureEPS(newFutureEPS);
