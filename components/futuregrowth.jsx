@@ -26,8 +26,8 @@ const FutureGrowth = ({ stock }) => {
     const newFuturePrice = newFutureEPS * futurePE;
     const newIRR = (newFuturePrice / stock.getPrice()) ** (1 / years) - 1;
     const goodPrice = newFuturePrice / (minimumIRR / 100 + 1) ** years;
-    setFutureRevenue(newFutureRevenue);
-    setFutureEarnings(newFutureEarnings);
+    setFutureRevenue(NumberUtils.numberToMillions(newFutureRevenue));
+    setFutureEarnings(NumberUtils.numberToMillions(newFutureEarnings));
     setFutureEPS(newFutureEPS);
     setFuturePrice(newFuturePrice);
     setIRR(newIRR);
@@ -177,11 +177,11 @@ const FutureGrowth = ({ stock }) => {
       <div className={`${styles.titleContainer}`}> Projections </div>
       <div>
         Future Revenue:
-        {NumberUtils.numberToDollars(futureRevenue)}
+        {`${NumberUtils.numberToDollars(futureRevenue)}M`}
       </div>
       <div>
         Future Earnings:
-        {NumberUtils.numberToDollars(futureEarnings)}
+        {`${NumberUtils.numberToDollars(futureEarnings)}M`}
       </div>
       <div>
         Future EPS:

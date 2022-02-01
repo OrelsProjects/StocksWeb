@@ -1,8 +1,8 @@
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
 
   // These options are needed to round to whole numbers if that's what you want.
   // minimumFractionDigits: 0, (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
@@ -17,6 +17,15 @@ const Utils = {
       return '-';
     }
   },
+
+  numberToMillions: (value) => {
+    try {
+      return value / 1000000;
+    } catch (ex) {
+      return '-';
+    }
+  },
+
   numberToPercentage: (value) => {
     try {
       return `${(parseFloat(value) * 100).toFixed(2)}%`;
