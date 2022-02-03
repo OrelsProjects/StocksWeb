@@ -16,6 +16,7 @@ const FutureGrowth = ({ stock }) => {
   const [minimumIRR, setMinimumIRR] = useState(15);
   const [IRR, setIRR] = useState(0);
   const [goodPrice, setGoodPrice] = useState(0);
+  const [priceProjected, setPriceProjected] = useState(0);
   const [freeCashFlowYield, setFreeCashFlowYield] = useState(0);
 
   function calculateValues() {
@@ -24,7 +25,7 @@ const FutureGrowth = ({ stock }) => {
     const newFutureEarnings = newFutureRevenue * (futureProfitMargin / 100);
     const newFutureEPS = newFutureEarnings / futureShares;
     const newFuturePrice = newFutureEPS * futurePE;
-    const newIRR = (newFuturePrice / stock.getPrice()) ** (1 / years) - 1;
+    const newIRR = (newFuturePrice / priceProjected) ** (1 / years) - 1;
     const goodPrice = newFuturePrice / (minimumIRR / 100 + 1) ** years;
     setFutureRevenue(NumberUtils.numberToMillions(newFutureRevenue));
     setFutureEarnings(NumberUtils.numberToMillions(newFutureEarnings));
@@ -40,6 +41,7 @@ const FutureGrowth = ({ stock }) => {
     setFuturePE(stock.getForwardPE());
     setFutureShares(stock.getSharesOutstanding());
     setFreeCashFlowYield(stock.getFreeCashFlowYield());
+    setPriceProjected(stock.getPrice());
   }
 
   function calculateFutureRevenue() {
@@ -90,6 +92,10 @@ const FutureGrowth = ({ stock }) => {
     setMinimumIRR(event.target.value);
   }
 
+  function handlePriceProjectedChange(event) {
+    setPriceProjected(event.target.value);
+  }
+
   function handleOutsideClick() { }
 
   //   useEffect(() => {
@@ -112,7 +118,7 @@ const FutureGrowth = ({ stock }) => {
   useEffect(() => {
     calculateValues();
   }, [futureShares, futureProfitMargin, futurePE, years, annualGrowthRate, futureShares, futurePE,
-    minimumIRR]);
+    minimumIRR, priceProjected]);
 
   return (
     <div className={`${styles.container}`}>
@@ -173,6 +179,13 @@ const FutureGrowth = ({ stock }) => {
         type="number"
         onChange={handleMinimumIRRChange}
         value={minimumIRR}
+      />
+      <TextField
+        id="priceProjected"
+        label="Price Projceted"
+        type="number"
+        onChange={handlePriceProjectedChange}
+        value={priceProjected}
       />
       <div className={`${styles.titleContainer}`}> Projections </div>
       <div>
