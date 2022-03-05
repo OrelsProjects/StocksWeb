@@ -1,17 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
 import Stock from '../../classes/stock/stock';
 import StockRow from './StockRow';
 import * as S from './style';
+import Input from '../../components/Customs/Input';
 
 export default function Portfolio() {
+
   const stock = new Stock(null, 'MVRS', null, null, 'Meta, Inc.');
+  const [ticker, setTicker] = useState("")
 
   return (
     <S.Portfolio>
+      <S.StockSearch>
+        <Input
+        label="Ticker"
+        placeHolder="MVRS"
+        onChange={(event) => setTicker(event.target.value)}
+        />
+      </S.StockSearch>
       <S.StockRowsContainer>
         <Link href="/stock/BYND">
           <S.StockRow>

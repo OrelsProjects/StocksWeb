@@ -2,8 +2,14 @@ import styled from 'styled-components';
 
 export const Portfolio = styled.div`
 height: 100%;
-width: 100%;
-background: red`;
+width: 100%`;
+export const StockSearch = styled.div`
+height: 80px;
+width: 140px;
+'MuiInputBase-root'{
+  color: white;
+}
+`;
 export const StockRowsContainer = styled.div`
 display: flex;
 flex-direction: column;
