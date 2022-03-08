@@ -68,7 +68,7 @@ export default function Login() {
 
   async function handleRegister() {
     await firebaseApp.auth().createUserWithEmailAndPassword(email, password).then((res) => {
-      firebase.firestore().collection(collections.users).doc(res.uid);
+      // firebase.firestore().collection(collections.users).doc(res.uid);
       alert(`user created! ${email}`);
     }).catch((error) => {
       alert(`error: ${error.message}`);

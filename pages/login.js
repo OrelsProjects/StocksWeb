@@ -8,12 +8,13 @@ import LoginContainer from '../containers/login';
 export default function Login() {
   const user = useSelector((reducers) => reducers.auth.user);
 
-  const completeLogin = () => {
-    Router.push('portfolio');
-  };
 
   const navigateToPortfolio = () => {
     Router.push('portfolio');
+  };
+
+  const completeLogin = () => {
+    navigateToPortfolio();
   };
 
   useEffect(() => {
