@@ -1,0 +1,18 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title{
+    font-size: 32px;
+    color: black;
+}
+
+.subTitle{
+    font-size: 28px;
+    color: rgba(0,0,0,0.5);
+}

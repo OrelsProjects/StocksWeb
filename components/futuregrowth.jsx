@@ -35,7 +35,7 @@ const FutureGrowth = ({ stock }) => {
     setGoodPrice(goodPrice);
   }
 
-  function initInitialValues() {
+  function initInitialValues() { 
     setFutureShares(stock.getSharesOutstanding());
     setFutureProfitMargin(stock.getProfitMargin());
     setFuturePE(stock.getForwardPE());
