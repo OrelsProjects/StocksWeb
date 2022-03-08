@@ -5,7 +5,8 @@ import NumberUtils from '../utils/numberUtils';
 
 const FutureGrowth = ({ stock }) => {
   const [years, setYears] = useState(5);
-  const [annualGrowthRate, setAnnualGrowthRate] = useState(20);
+  const [annualGrowthRate, setAnnualGrowthRate] = useState(10);
+  const [annualOutstandingSharesChange, setAnnualOutstandingSharesChange] = useState(0)
   const [futureShares, setFutureShares] = useState(11111);
   const [futureProfitMargin, setFutureProfitMargin] = useState(10);
   const [futurePE, setFuturePE] = useState(90);
@@ -21,6 +22,9 @@ const FutureGrowth = ({ stock }) => {
 
   function calculateValues() {
     const currentRevenue = stock.getRevenue();
+    const newOutstandingShares =
+      stock.getSharesOutstanding() * (1 - annualOutstandingSharesChange / 100 / 1) ** years
+    setFutureShares(newOutstandingShares)
     const newFutureRevenue = currentRevenue * (1 + annualGrowthRate / 100 / 1) ** (1 * years);
     const newFutureEarnings = newFutureRevenue * (futureProfitMargin / 100);
     const newFutureEPS = newFutureEarnings / futureShares;
@@ -46,7 +50,8 @@ const FutureGrowth = ({ stock }) => {
 
   function calculateFutureRevenue() {
     const currentRevenue = stock.getRevenue();
-    const futureRevenue = currentRevenue * Math.pow(1 + annualGrowthRate / 100 / 1, 1 * years);
+    const futureRevenue =
+      currentRevenue * Math.pow(1 + annualGrowthRate / 100 / 1, 1 * years);
     setFutureRevenue(futureRevenue);
   }
 
@@ -92,6 +97,14 @@ const FutureGrowth = ({ stock }) => {
     setMinimumIRR(event.target.value);
   }
 
+  function handleAnnualOutstandingSharesChange(event) {
+    if (event.target.value > 100) {
+      setAnnualOutstandingSharesChange(100)
+    } else {
+      setAnnualOutstandingSharesChange(event.target.value)
+    }
+  }
+
   function handlePriceProjectedChange(event) {
     setPriceProjected(event.target.value);
   }
@@ -118,7 +131,7 @@ const FutureGrowth = ({ stock }) => {
   useEffect(() => {
     calculateValues();
   }, [futureShares, futureProfitMargin, futurePE, years, annualGrowthRate, futureShares, futurePE,
-    minimumIRR, priceProjected]);
+    minimumIRR, priceProjected, annualOutstandingSharesChange]);
 
   return (
     <div className={`${styles.container}`}>
@@ -179,6 +192,13 @@ const FutureGrowth = ({ stock }) => {
         type="number"
         onChange={handleMinimumIRRChange}
         value={minimumIRR}
+      />
+      <TextField
+        id="outstandingSharesChange"
+        label="Outstanding Shares Reduction"
+        type="number"
+        onChange={handleAnnualOutstandingSharesChange}
+        value={annualOutstandingSharesChange}
       />
       <TextField
         id="priceProjected"
