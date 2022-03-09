@@ -6,7 +6,7 @@ import { TextField, Button } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function InputScreen({
-    title, subTitle, subTitleLink, inputsPlaceholders, onClick,
+    title, subTitle, subTitleLink, inputsPlaceholders, onClick, parametersNames
 }) {
     const [isLoading, setIsLoading] = useState(false)
     const [parameters, setParameters] = useState({})
@@ -25,15 +25,15 @@ export default function InputScreen({
             </a>
             <div className={styles.inputsContainer}>
                 {
-                    inputsPlaceholders.map(placeholder =>
-                        <div className={styles.input} key={placeholder}>
-                            <TextField id="outlined-basic" label={placeholder} variant="outlined"
+                    parametersNames.map(parameterName =>
+                        <div className={styles.input} key={parameterName}>
+                            <TextField id="outlined-basic" label={parameterName} variant="outlined"
                                 onChange={(event) => {
-                                    setParameters((parameters) =>{
-                                        if(!parameters[placeholder.toLowerCase()]){
-                                            parameters[placeholder.toLowerCase()] = '';
+                                    setParameters((parameters) => {
+                                        if (!parameters[parameterName]) {
+                                            parameters[parameterName] = '';
                                         }
-                                        parameters[placeholder.toLowerCase()] = event.target.value;
+                                        parameters[parameterName] = event.target.value;
                                         return parameters
                                     })
                                 }} />
@@ -43,7 +43,7 @@ export default function InputScreen({
             </div>
             {isLoading ? <CircularProgress /> : <Button onClick={() => {
                 setIsLoading(true)
-               onClick({ ticker: parameters.ticker })
+                onClick({ parameters })
             }} variant="contained">Next</Button>}
 
         </div>
@@ -63,5 +63,6 @@ InputScreen.propTypes = {
     subTitle: PropTypes.string,
     subTitleLink: PropTypes.string,
     onClick: PropTypes.func,
-    inputsPlaceholders: PropTypes.arrayOf(PropTypes.string)
+    inputsPlaceholders: PropTypes.arrayOf(PropTypes.string),
+    parametersNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

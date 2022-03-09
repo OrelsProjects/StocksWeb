@@ -1,18 +1,17 @@
 import Router from 'next/router';
 
 export function toWACCCalculation() {
-    console.log("hei")
-    Router.push('WACC');
+  Router.push('WACC');
 }
 
 export function toDiscountedFreeCashflow() {
-    Router.push('DiscountedFreeCashflow');
+  Router.push('DiscountedFreeCashflow');
 }
 
 export function toAssumptions() {
-    Router.push('Assumptions');
+  Router.push('DCF/Assumptions');
 }
 
 export function toDCF() {
-    Router.push('DCF');
+  Router.push('DCF');
 }
