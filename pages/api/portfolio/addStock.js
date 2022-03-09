@@ -34,7 +34,6 @@ export default async function handler(req, res) {
     batch.set(purchaseDoc, purchaseToJson(purchase), { merge: true });
     batch.update(portfolioDoc, firebase.firestore.FieldValue.arrayUnion(purchase.id));
     const result = await batch.commit();
-    debugger;
     res.status(200).send({ ok: true });
   } catch (ex) {
     debugger;

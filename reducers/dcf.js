@@ -6,7 +6,6 @@ const initialState = {
 };
 
 const dcfReducer = (state = initialState, action) => {
-    debugger;
     const dcf = state.dcf[state.dcf.length - 1] ? state.dcf[state.dcf.length - 1] : [];
     switch (action.type) {
         case INITIATE_DCF_CALCULATION:

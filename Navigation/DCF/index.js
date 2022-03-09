@@ -9,7 +9,7 @@ export function toDiscountedFreeCashflow() {
 }
 
 export function toAssumptions() {
-  Router.push('DCF/Assumptions');
+  Router.push('Assumptions');
 }
 
 export function toDCF() {

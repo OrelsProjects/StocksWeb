@@ -20,6 +20,7 @@ export default function Portfolio() {
         placeHolder="MVRS"
         onChange={(event) => setTicker(event.target.value)}
         />
+        
       </S.StockSearch>
       <S.StockRowsContainer>
         <Link href="/stock/BYND">
