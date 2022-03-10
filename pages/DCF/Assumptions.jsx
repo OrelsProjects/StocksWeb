@@ -20,17 +20,17 @@ export default function Assumptions() {
     'Capex',
   ];
 
-  const parametersNames = [
-    'taxRate',
-    'discountRate',
-    'perpetualGrowthRate',
-    'evToEbitda',
-    'currentPrice',
-    'sharesOutstanding',
-    'debt',
-    'cash',
-    'capex',
-  ];
+  const parametersNames = {
+    taxRate: '34',
+    discountRate: '',
+    perpetualGrowthRate: '',
+    evToEbitda: '',
+    currentPrice: '',
+    sharesOutstanding: '',
+    debt: '',
+    cash: '',
+    capex: '',
+  };
 
   return (
     <div className={styles.container}>

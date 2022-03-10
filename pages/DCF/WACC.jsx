@@ -15,11 +15,11 @@ export default function Wacc() {
     'Cost of Debt',
   ];
 
-  const parametersNames = [
-    'riskFreeRate',
-    'equityRate',
-    'beta',
-  ];
+  const parametersNames = {
+    riskFreeRate: '',
+    equityRate: '',
+    beta: '',
+  };
 
   useEffect(() => {
 

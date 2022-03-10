@@ -19,16 +19,16 @@ export default function Assumptions() {
     'Changes in NWC Growth',
   ];
 
-  const parametersNames = [
-    'ebit',
-    'ebitGrowth',
-    'da',
-    'daGrowth',
-    'capex',
-    'capexGrowth',
-    'changesInNWC',
-    'changesInNWCGrowth',
-  ];
+  const parametersNames = {
+    ebit: '',
+    ebitGrowth: '',
+    da: '',
+    daGrowth: '',
+    capex: '',
+    capexGrowth: '',
+    changesInNWC: '',
+    changesInNWCGrowth: '',
+  };
 
   return (
     <div className={styles.container}>
