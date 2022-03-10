@@ -29,14 +29,14 @@ export default function InputScreen({
                         const value = parametersNames[parameterName]
                         parameters[parameterName] = value
                         return (<div className={styles.input} key={parameterName}>
-                            <TextField id="outlined-basic" label={parameterName} variant="outlined" value={value}
+                            <TextField id="outlined-basic" label={parameterName} variant="outlined" defaultValue={value}
                                 onChange={(event) => {
                                     setParameters((parameters) => {
                                         if (!parameters[parameterName]) {
                                             parameters[parameterName] = '';
                                         }
                                         parameters[parameterName] = event.target.value;
-                                        return parameters
+                                        return parameters;
                                     })
                                 }} />
                         </div>)

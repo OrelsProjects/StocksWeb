@@ -10,25 +10,21 @@ export const initiateDCF = (stock) => ({
 });
 
 export const setAssumptions = ({
-    taxRate, discountRate, perpetualGrowthRate, evToEbitda, currentPrice, sharesOutstanding, debt, cash, capex,
+    taxRate, perpetualGrowthRate, evToEbitda, currentPrice, sharesOutstanding, debt, cash, capex,
 }) => (
     {
         type: SET_ASSUMPTIONS,
         assumptions: {
-            taxRate, discountRate, perpetualGrowthRate, evToEbitda, currentPrice, sharesOutstanding, debt, cash, capex,
+            taxRate, perpetualGrowthRate, evToEbitda, currentPrice, sharesOutstanding, debt, cash, capex,
         },
     });
 
-export const setWacc = ({ riskFreeRate, equityRate, beta }) => ({
+export const setWacc = ({ riskFreeRate, beta, costOfDebt }) => ({
     type: SET_WACC,
-    wacc: { riskFreeRate, equityRate, beta },
+    wacc: { riskFreeRate, beta, costOfDebt },
 });
 
-export const setDiscountedFreeCashflow = ({
-    ebit, ebitGrowth, da, daGrowth, capex, capexGrowth, changesInNWC, changesInNWCGrowth,
-}) => ({
+export const setDiscountedFreeCashflow = (values) => ({
     type: SET_DISCOUNTED_FREE_CASH_FLOW,
-    discountedFreeCashflow: {
-        ebit, ebitGrowth, da, daGrowth, capex, capexGrowth, changesInNWC, changesInNWCGrowth,
-    },
+    discountedFreeCashflow: values,
 });

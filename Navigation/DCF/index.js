@@ -1,17 +1,21 @@
 import Router from 'next/router';
 
 export function toWACCCalculation() {
-  Router.push('WACC');
+  Router.push('wacc');
+}
+
+export function toResults() {
+  Router.push('results');
 }
 
 export function toDiscountedFreeCashflow() {
-  Router.push('DiscountedFreeCashflow');
+  Router.push('discountedfreecashflow');
 }
 
 export function toAssumptions() {
-  Router.push('Assumptions');
+  Router.push('assumptions');
 }
 
 export function toDCF() {
-  Router.push('DCF');
+  Router.push('dcf');
 }

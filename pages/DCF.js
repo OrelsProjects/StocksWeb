@@ -57,7 +57,6 @@ export default function DCF({ ticker }) {
         inputsPlaceholders={['Ticker']}
         parametersNames={['ticker']}
         onClick={({parameters}) => {
-          debugger;
           dispatch(dcfActions.initiateDCF(parameters.ticker))
           toAssumptions();
         }} /> */}

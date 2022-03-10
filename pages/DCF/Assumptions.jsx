@@ -23,14 +23,14 @@ export default function Assumptions() {
 
   const parametersNames = {
     taxRate: '20',
-    discountRate: '7.5',
     perpetualGrowthRate: '2.5',
-    evToEbitda: `${stock?.getForwardPE() ? stock?.getForwardPE() : ''}`,
-    currentPrice: `${stock?.getPrice() ? stock?.getPrice() : ''}`,
-    sharesOutstanding: `${stock?.getSharesOutstanding() ? stock?.getSharesOutstanding() : ''}`,
-    debt: '',
-    cash: `${stock?.getCashByQuarter(4) ? stock?.getCashByQuarter(4) : ''}`,
-    capex: `${stock?.getCapexByQuarter(4) ? stock?.getCapexByQuarter(4) : ''}`,
+    evToEbitda: `${stock?.getForwardPE() ? stock?.getForwardPE() : '15'}`,
+    currentPrice: `${stock?.getPrice() ? stock?.getPrice() : '62'}`,
+    sharesOutstanding: `${stock?.getSharesOutstanding() ? stock?.getSharesOutstanding() : '24500000'}`,
+    debt: '3000000',
+    cash: `${stock?.getCashByQuarter(4) ? stock?.getCashByQuarter(4) : '168000'}`,
+    capex: `${stock?.getCapexByQuarter(4) ? stock?.getCapexByQuarter(4) : '3000000'}`,
+    fiscalYearEnd: '2022', // Todo make it a date picker
   };
 
   return (

@@ -11,22 +11,22 @@ export default function Wacc() {
 
   const placeHolders = [
     'Risk Free Rate',
-    'Equity Rate',
     'Beta',
     'Cost of Debt',
   ];
 
   const parametersNames = {
-    riskFreeRate: '',
-    equityRate: '',
-    beta: `${stock?.getBeta() ? stock?.getBeta() : ''}`,
+    riskFreeRate: '75',
+    beta: `${stock?.getBeta() ? stock?.getBeta() : '1.1'}`,
+    costOfDebt: '6',
   };
 
   return (
     <div className={styles.container}>
       <InputScreen
         title="WACC"
-        subTitle="stockspokedex.com"
+        subTitle={'cost_of_debt = interest_expense/total_debt'
+          + '\n --- risk_free_rate = us10y'}
         subTitleLink="stockspokedex.com"
         inputsPlaceholders={placeHolders}
         parametersNames={parametersNames}
