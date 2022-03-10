@@ -45,8 +45,16 @@ export default class Stock {
       ? this.statistics?.getProfitMargin() : this.getTTMEarnings() / this.getRevenue();
   }
 
-  getTotalDebt() {
+  getCashByQuarter(quarter = 1) {
+    return this.financials.getCashByQuarter(quarter);
+  }
 
+  getCapexByQuarter(quarter = 1) { // capitalExpenditures
+    return this.financials.getCapexByQuarter(quarter);
+  }
+
+  getTotalCash() {
+    return this.financials.getBalanceSheetHistoryByQuarter(4);
   }
 
   getStockName() {

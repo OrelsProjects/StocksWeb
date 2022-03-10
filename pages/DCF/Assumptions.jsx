@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/Assumption.module.css';
 import InputScreen from '../../components/InputScreen/InputScreen';
 import { toWACCCalculation } from '../../Navigation/DCF';
@@ -7,6 +7,7 @@ import { setAssumptions } from '../../actions/dcf';
 
 export default function Assumptions() {
   const dispatch = useDispatch();
+  const stock = useSelector((reducers) => reducers.dcf.dcf.stock);
 
   const placeholders = [
     'Tax Rate',
@@ -21,15 +22,15 @@ export default function Assumptions() {
   ];
 
   const parametersNames = {
-    taxRate: '34',
-    discountRate: '',
-    perpetualGrowthRate: '',
-    evToEbitda: '',
-    currentPrice: '',
-    sharesOutstanding: '',
+    taxRate: '20',
+    discountRate: '7.5',
+    perpetualGrowthRate: '2.5',
+    evToEbitda: `${stock.getForwardPE()}`,
+    currentPrice: `${stock.getPrice()}`,
+    sharesOutstanding: `${stock.getSharesOutstanding()}`,
     debt: '',
-    cash: '',
-    capex: '',
+    cash: `${stock.getCashByQuarter(4)}`,
+    capex: `${stock.getCapexByQuarter(4)}`,
   };
 
   return (
