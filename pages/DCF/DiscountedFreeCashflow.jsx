@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/Assumption.module.css';
 import InputScreen from '../../components/InputScreen/InputScreen';
 import { toWACCCalculation } from '../../Navigation/DCF';
@@ -7,6 +7,7 @@ import { setDiscountedFreeCashflow } from '../../actions/dcf';
 
 export default function Assumptions() {
   const dispatch = useDispatch();
+  const stock = useSelector((reducers) => reducers.dcf.stock);
 
   const placeholders = [
     'EBIT',
@@ -20,11 +21,11 @@ export default function Assumptions() {
   ];
 
   const parametersNames = {
-    ebit: '',
+    ebit: `${stock?.getEbitByQuarter(4) ? stock?.getEbitByQuarter(4) : ''}`,
     ebitGrowth: '',
     da: '',
     daGrowth: '',
-    capex: '',
+    capex: `${stock?.getCapexByQuarter(4) ? stock?.getCapexByQuarter(4) : ''}`,
     capexGrowth: '',
     changesInNWC: '',
     changesInNWCGrowth: '',

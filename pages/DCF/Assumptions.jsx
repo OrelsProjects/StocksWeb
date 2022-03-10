@@ -7,7 +7,7 @@ import { setAssumptions } from '../../actions/dcf';
 
 export default function Assumptions() {
   const dispatch = useDispatch();
-  const stock = useSelector((reducers) => reducers.dcf.dcf.stock);
+  const stock = useSelector((reducers) => reducers.dcf.stock);
 
   const placeholders = [
     'Tax Rate',
@@ -25,12 +25,12 @@ export default function Assumptions() {
     taxRate: '20',
     discountRate: '7.5',
     perpetualGrowthRate: '2.5',
-    evToEbitda: `${stock.getForwardPE()}`,
-    currentPrice: `${stock.getPrice()}`,
-    sharesOutstanding: `${stock.getSharesOutstanding()}`,
+    evToEbitda: `${stock?.getForwardPE() ? stock?.getForwardPE() : ''}`,
+    currentPrice: `${stock?.getPrice() ? stock?.getPrice() : ''}`,
+    sharesOutstanding: `${stock?.getSharesOutstanding() ? stock?.getSharesOutstanding() : ''}`,
     debt: '',
-    cash: `${stock.getCashByQuarter(4)}`,
-    capex: `${stock.getCapexByQuarter(4)}`,
+    cash: `${stock?.getCashByQuarter(4) ? stock?.getCashByQuarter(4) : ''}`,
+    capex: `${stock?.getCapexByQuarter(4) ? stock?.getCapexByQuarter(4) : ''}`,
   };
 
   return (

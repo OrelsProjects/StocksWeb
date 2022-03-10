@@ -53,6 +53,10 @@ export default class Stock {
     return this.financials.getCapexByQuarter(quarter);
   }
 
+  getEbitByQuarter(quarter = 1) {
+    return this.financials.getEbitByQuarter(quarter);
+  }
+
   getTotalCash() {
     return this.financials.getBalanceSheetHistoryByQuarter(4);
   }
@@ -63,6 +67,10 @@ export default class Stock {
 
   getForwardPE() {
     return this.statistics.getForwardPE() ? this.statistics.getForwardPE() : 20;
+  }
+
+  getBeta() {
+    return this.statistics.getBeta() ? this.statistics.getBeta() : -1;
   }
 
   getEnterpriseValue() {

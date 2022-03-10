@@ -38,6 +38,25 @@ export default class Financials {
     return this.financials.cashflowStatementHistory;
   }
 
+  getIncomeStatementHistory() {
+    return this.financials.incomeStatementHistory;
+  }
+
+  /**
+   * Finds the income statement json according to quarter.
+   * @param {*} quarter quarters are counted from 1 to 4.
+   * @returns income statement json.
+   */
+  getIncomeStatementHistoryByQuarter(quarter = 1) {
+    if (quarter < 1) {
+      return this.getIncomeStatementHistory()?.incomeStatementHistory[0];
+    }
+    if (quarter > 4) {
+      return this.getIncomeStatementHistory()?.incomeStatementHistory[3];
+    }
+    return this.getIncomeStatementHistory()?.incomeStatementHistory[4 - quarter];
+  }
+
   /**
    * Finds the cashflow json according to quarter.
    * @param {*} quarter quarters are counted from 1 to 4.
@@ -76,6 +95,11 @@ export default class Financials {
   getCapexByQuarter(quarter = 1) { // capitalExpenditures
     return this.getCashflowStatementHistoryByQuarter(quarter)?.capitalExpenditures?.raw
       ? this.getCashflowStatementHistoryByQuarter(quarter)?.capitalExpenditures?.raw : 0;
+  }
+
+  getEbitByQuarter(quarter = 1) {
+    return this.getIncomeStatementHistoryByQuarter(quarter)?.ebit?.raw
+      ? this.getIncomeStatementHistoryByQuarter(quarter)?.ebit?.raw : 0;
   }
 
   getPrice() {

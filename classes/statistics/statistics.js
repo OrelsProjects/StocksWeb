@@ -42,6 +42,10 @@ export default class Statistics {
     return this.statistics?.summaryDetail?.forwardPE?.raw;
   }
 
+  getBeta() {
+    return this.statistics?.defaultKeyStatistics?.beta?.raw;
+  }
+
   getEnterpriseValue() {
     return this.statistics?.defaultKeyStatistics?.enterpriseValue?.raw;
   }

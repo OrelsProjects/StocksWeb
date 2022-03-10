@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/Assumption.module.css';
 import InputScreen from '../../components/InputScreen/InputScreen';
 import { toDiscountedFreeCashflow } from '../../Navigation/DCF';
@@ -7,6 +7,7 @@ import { setWacc } from '../../actions/dcf';
 
 export default function Wacc() {
   const dispatch = useDispatch();
+  const stock = useSelector((reducers) => reducers.dcf.stock);
 
   const placeHolders = [
     'Risk Free Rate',
@@ -18,12 +19,8 @@ export default function Wacc() {
   const parametersNames = {
     riskFreeRate: '',
     equityRate: '',
-    beta: '',
+    beta: `${stock?.getBeta() ? stock?.getBeta() : ''}`,
   };
-
-  useEffect(() => {
-
-  });
 
   return (
     <div className={styles.container}>
