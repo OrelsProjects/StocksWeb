@@ -49,6 +49,10 @@ export default class Stock {
     return this.financials.getMarketCap();
   }
 
+  getCurrentYearsCash() {
+    return this.financials.getCurrentYearsCash();
+  }
+
   getCashByQuarter(quarter = 1) {
     return this.financials.getCashByQuarter(quarter);
   }

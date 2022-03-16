@@ -87,6 +87,14 @@ export default class Financials {
     return this.getBalanceSheetHistory()?.balanceSheetStatements[4 - quarter];
   }
 
+  getCurrentYearsCash() {
+    let accumulatedCash = 0;
+    for (let i = 0; i < 4; i += 1) {
+      accumulatedCash += this.getCashByQuarter(i);
+    }
+    return accumulatedCash;
+  }
+
   getCashByQuarter(quarter = 1) {
     return this.getBalanceSheetHistoryByQuarter(quarter)?.cash?.raw
       ? this.getBalanceSheetHistoryByQuarter(quarter)?.cash?.raw : 0;
