@@ -25,7 +25,7 @@ const FutureGrowth = ({ stock }) => {
   const [cashflowPerShare, setCashflowPerShare] = useState(0);
   const [futureCashflow, setFutureCashflow] = useState(0);
   const [accumulatedCash, setAccumulatedCash] = useState(0);
-  const [intrinsicValue, setIntrinsicValue] = useState(0);
+  const [intrinsicValue, setIntrinsicValue] = useState(0); // sum all cashflows without regarding the share change. maybe regard debt
   const [fcfPriceProjected, setFCFPriceProjected] = useState(0);
   const [priceToFCF, setPriceToFCF] = useState(10);
 
