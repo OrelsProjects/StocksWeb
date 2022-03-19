@@ -49,7 +49,7 @@ export default class Stock {
     return this.financials.getMarketCap();
   }
 
-  getCurrentYearsCash() {
+  getCurrentYearsCashflow() {
     return this.financials.getCurrentYearsCash();
   }
 
@@ -91,5 +91,13 @@ export default class Stock {
 
   getFreeCashFlowYield() {
     return 1 / (this.getEnterpriseValue() / this.getFreeCashFlow());
+  }
+
+  getCashAndCashEquivalents() {
+    return this.statistics.getCashAndCashEquivalents();
+  }
+
+  getDebt() {
+    return this.statistics.getDebt();
   }
 }

@@ -12,7 +12,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 const Utils = {
   numberToDollars: (value) => {
     try {
-      return formatter.format(value);
+      return formatter.format(Math.round(value));
     } catch (ex) {
       return '-';
     }
@@ -20,7 +20,15 @@ const Utils = {
 
   numberToMillions: (value) => {
     try {
-      return value / 1000000;
+      return Math.round(value / 1000000);
+    } catch (ex) {
+      return '-';
+    }
+  },
+
+  numberToBillions: (value) => {
+    try {
+      return Math.round(value / 1000000000);
     } catch (ex) {
       return '-';
     }

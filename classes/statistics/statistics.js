@@ -50,6 +50,16 @@ export default class Statistics {
     return this.statistics?.defaultKeyStatistics?.enterpriseValue?.raw;
   }
 
+  getCashAndCashEquivalents() {
+    return this.statistics?.financialData?.totalCash?.raw
+      ? this.statistics?.financialData?.totalCash?.raw : 0;
+  }
+
+  getDebt() {
+    return this.statistics?.financialData?.totalDebt?.raw
+      ? this.statistics?.financialData?.totalDebt?.raw : 0;
+  }
+
   getFreeCashFlow() {
     return this.statistics?.financialData?.freeCashflow?.raw;
   }

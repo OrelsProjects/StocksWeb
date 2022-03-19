@@ -33,10 +33,20 @@ const FutureGrowth = ({ stock }) => {
     let currentRevenue = stock.getRevenue();
     let accumulatedCashflow = 0;
     for (let i = 0; i < years; i += 1) {
-      accumulatedCashflow += currentRevenue * cashflowMargin;
+      accumulatedCashflow += currentRevenue * (cashflowMargin / 100);
       currentRevenue = currentRevenue * (1 + annualGrowthRate / 100);
     }
-    setAccumulatedCash(accumulatedCash);
+    setAccumulatedCash(accumulatedCashflow);
+    return accumulatedCashflow
+  }
+
+  function calculateIntrisicValue(accumulatedCash){
+    const cash = stock.getCashAndCashEquivalents();
+    const debt = stock.getDebt();
+    const netDebt = debt - cash;
+    debugger;
+    const cashValue = accumulatedCash - netDebt;
+    setIntrinsicValue(cashValue);
   }
 
   function calculateValues() {
@@ -49,7 +59,6 @@ const FutureGrowth = ({ stock }) => {
     const newFutureEPS = newFutureEarnings / futureShares;
     const newFuturePrice = newFutureEPS * futurePE;
     const newFutureCashflow = newFutureRevenue * (cashflowMargin / 100);
-    debugger;
     const newCashflowPerShare = newFutureCashflow / stock.getSharesOutstanding();
     const newFutureCashflowPrice = newCashflowPerShare * priceToFCF;
     const newIRR = (newFuturePrice / priceSetByUser) ** (1 / years) - 1;
@@ -64,7 +73,8 @@ const FutureGrowth = ({ stock }) => {
 
     setFutureCashflow(newFutureCashflow);
     setCashflowPerShare(newCashflowPerShare);
-    calculateAccumulatedCash();
+    const accumulateCash = calculateAccumulatedCash();
+    calculateIntrisicValue(accumulateCash);
   }
 
   function initInitialValues() {
@@ -298,7 +308,7 @@ const FutureGrowth = ({ stock }) => {
       </div>
       <div>
         Intrinsic Value:
-        {NumberUtils.numberToMillions(intrinsicValue)}
+        {`${NumberUtils.numberToDollars(NumberUtils.numberToMillions(intrinsicValue))}M`}
       </div>
       <div className={`${styles.calculateButton}`} onClick={calculateValues}>
         Calculate
