@@ -64,12 +64,10 @@ const FutureGrowth = ({ stock }) => {
     } else {
       newFuturePrice = newFutureEPS * futurePE;
     }
-    const newIRR = (newFuturePrice / priceProjected) ** (1 / years) - 1;
-    const newFuturePrice = newFutureEPS * futurePE;
+    const newIRR = (newFuturePrice / priceSetByUser) ** (1 / years) - 1;
     const newFutureCashflow = newFutureRevenue * (cashflowMargin / 100);
     const newCashflowPerShare = newFutureCashflow / stock.getSharesOutstanding();
     const newFutureCashflowPrice = newCashflowPerShare * priceToFCF;
-    const newIRR = (newFuturePrice / priceSetByUser) ** (1 / years) - 1;
     const goodPrice = newFuturePrice / (minimumIRR / 100 + 1) ** years;
     setFutureRevenue(NumberUtils.numberToMillions(newFutureRevenue));
     setFutureEarnings(NumberUtils.numberToMillions(newFutureEarnings));
@@ -169,11 +167,9 @@ const FutureGrowth = ({ stock }) => {
 
   useEffect(() => {
     calculateValues();
-    debugger;
-    console.log(IRR)
-    console.log(parseFloat(minimumIRR))
   }, [futureShares, futureProfitMargin, futurePE, years, annualGrowthRate, futureShares, futurePE,
-    minimumIRR, priceSetByUser, annualOutstandingSharesChange, cashflowMargin, priceToFCF]);
+    minimumIRR, priceSetByUser, annualOutstandingSharesChange, cashflowMargin, 
+    priceToFCF, priceSetByUser]);
 
   return (
     <div className={`${styles.container}`}>
@@ -266,7 +262,7 @@ const FutureGrowth = ({ stock }) => {
           type="number"
           variant="outlined"
           onChange={handlePriceProjectedChange}
-          value={priceProjected}
+          value={priceSetByUser}
         />
       </div>
       <div className={`${styles.projections} ${styles.section}`}>
