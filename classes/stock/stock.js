@@ -45,8 +45,28 @@ export default class Stock {
       ? this.statistics?.getProfitMargin() : this.getTTMEarnings() / this.getRevenue();
   }
 
-  getTotalDebt() {
+  getMarketCap() {
+    return this.financials.getMarketCap();
+  }
 
+  getCurrentYearsCashflow() {
+    return this.financials.getCurrentYearsCash();
+  }
+
+  getCashByQuarter(quarter = 1) {
+    return this.financials.getCashByQuarter(quarter);
+  }
+
+  getCapexByQuarter(quarter = 1) { // capitalExpenditures
+    return this.financials.getCapexByQuarter(quarter);
+  }
+
+  getEbitByQuarter(quarter = 1) {
+    return this.financials.getEbitByQuarter(quarter);
+  }
+
+  getTotalCash() {
+    return this.financials.getBalanceSheetHistoryByQuarter(4);
   }
 
   getStockName() {
@@ -55,6 +75,10 @@ export default class Stock {
 
   getForwardPE() {
     return this.statistics.getForwardPE() ? this.statistics.getForwardPE() : 20;
+  }
+
+  getBeta() {
+    return this.statistics.getBeta() ? this.statistics.getBeta() : -1;
   }
 
   getEnterpriseValue() {
@@ -67,5 +91,13 @@ export default class Stock {
 
   getFreeCashFlowYield() {
     return 1 / (this.getEnterpriseValue() / this.getFreeCashFlow());
+  }
+
+  getCashAndCashEquivalents() {
+    return this.statistics.getCashAndCashEquivalents();
+  }
+
+  getDebt() {
+    return this.statistics.getDebt();
   }
 }

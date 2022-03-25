@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { TextField } from '@material-ui/core';
 import styles from '../styles/FutureGrowth.module.css';
@@ -17,8 +18,36 @@ const FutureGrowth = ({ stock }) => {
   const [minimumIRR, setMinimumIRR] = useState(15);
   const [IRR, setIRR] = useState(0);
   const [goodPrice, setGoodPrice] = useState(0);
-  const [priceProjected, setPriceProjected] = useState(0);
+  const [priceSetByUser, setPriceSetByUser] = useState(0);
+
   const [freeCashFlowYield, setFreeCashFlowYield] = useState(0);
+  const [cashflowMargin, setCashflowMargin] = useState(5);
+  const [cashflowPerShare, setCashflowPerShare] = useState(0);
+  const [futureCashflow, setFutureCashflow] = useState(0);
+  const [accumulatedCash, setAccumulatedCash] = useState(0);
+  const [intrinsicValue, setIntrinsicValue] = useState(0); // sum all cashflows without regarding the share change. maybe regard debt
+  const [fcfPriceProjected, setFCFPriceProjected] = useState(0);
+  const [priceToFCF, setPriceToFCF] = useState(10);
+
+  function calculateAccumulatedCash() {
+    let currentRevenue = stock.getRevenue();
+    let accumulatedCashflow = 0;
+    for (let i = 0; i < years; i += 1) {
+      accumulatedCashflow += currentRevenue * (cashflowMargin / 100);
+      currentRevenue = currentRevenue * (1 + annualGrowthRate / 100);
+    }
+    setAccumulatedCash(accumulatedCashflow);
+    return accumulatedCashflow
+  }
+
+  function calculateIntrisicValue(accumulatedCash){
+    const cash = stock.getCashAndCashEquivalents();
+    const debt = stock.getDebt();
+    const netDebt = debt - cash;
+    debugger;
+    const cashValue = accumulatedCash - netDebt;
+    setIntrinsicValue(cashValue);
+  }
 
   function calculateValues() {
     const currentRevenue = stock.getRevenue();
@@ -36,13 +65,24 @@ const FutureGrowth = ({ stock }) => {
       newFuturePrice = newFutureEPS * futurePE;
     }
     const newIRR = (newFuturePrice / priceProjected) ** (1 / years) - 1;
+    const newFuturePrice = newFutureEPS * futurePE;
+    const newFutureCashflow = newFutureRevenue * (cashflowMargin / 100);
+    const newCashflowPerShare = newFutureCashflow / stock.getSharesOutstanding();
+    const newFutureCashflowPrice = newCashflowPerShare * priceToFCF;
+    const newIRR = (newFuturePrice / priceSetByUser) ** (1 / years) - 1;
     const goodPrice = newFuturePrice / (minimumIRR / 100 + 1) ** years;
     setFutureRevenue(NumberUtils.numberToMillions(newFutureRevenue));
     setFutureEarnings(NumberUtils.numberToMillions(newFutureEarnings));
     setFutureEPS(newFutureEPS);
     setFuturePrice(newFuturePrice);
+    setFCFPriceProjected(newFutureCashflowPrice);
     setIRR(newIRR);
     setGoodPrice(goodPrice);
+
+    setFutureCashflow(newFutureCashflow);
+    setCashflowPerShare(newCashflowPerShare);
+    const accumulateCash = calculateAccumulatedCash();
+    calculateIntrisicValue(accumulateCash);
   }
 
   function initInitialValues() {
@@ -51,7 +91,7 @@ const FutureGrowth = ({ stock }) => {
     setFuturePE(stock.getForwardPE());
     setFutureShares(stock.getSharesOutstanding());
     setFreeCashFlowYield(stock.getFreeCashFlowYield());
-    setPriceProjected(stock.getPrice());
+    setPriceSetByUser(stock.getPrice());
   }
 
   function calculateFutureRevenue() {
@@ -87,6 +127,14 @@ const FutureGrowth = ({ stock }) => {
     setAnnualGrowthRate(event.target.value);
   }
 
+  function handleCashflowMarginChange(event) {
+    setCashflowMargin(event.target.value);
+  }
+
+  function handlePriceToFCFChange(event) {
+    setPriceToFCF(event.target.value);
+  }
+
   function handleProfitMarginChange(event) {
     setFutureProfitMargin(event.target.value);
   }
@@ -112,7 +160,7 @@ const FutureGrowth = ({ stock }) => {
   }
 
   function handlePriceProjectedChange(event) {
-    setPriceProjected(event.target.value);
+    setPriceSetByUser(event.target.value);
   }
 
   useEffect(() => {
@@ -125,7 +173,7 @@ const FutureGrowth = ({ stock }) => {
     console.log(IRR)
     console.log(parseFloat(minimumIRR))
   }, [futureShares, futureProfitMargin, futurePE, years, annualGrowthRate, futureShares, futurePE,
-    minimumIRR, priceProjected, annualOutstandingSharesChange]);
+    minimumIRR, priceSetByUser, annualOutstandingSharesChange, cashflowMargin, priceToFCF]);
 
   return (
     <div className={`${styles.container}`}>
@@ -229,6 +277,92 @@ const FutureGrowth = ({ stock }) => {
         </div>
         <div>
           Future Earnings:
+      <div className={`${styles.titleContainer}`}> Assumptions </div>
+      <TextField
+        id="ticker"
+        label="Years"
+        type="number"
+        onChange={handleYearsChange}
+        value={years}
+      />
+      <TextField
+        id="growth"
+        label="Growth Rate"
+        type="number"
+        onChange={handleGrowthRateChange}
+        suffix="%"
+        value={annualGrowthRate}
+      />
+      <TextField
+        id="cashflowGrowth"
+        label="Cashflow Margin"
+        type="number"
+        onChange={handleCashflowMarginChange}
+        suffix="%"
+        value={cashflowMargin}
+      />
+      <TextField
+        id="shares"
+        label="Shares Outstanding"
+        type="number"
+        onChange={handleFutureSharesChange}
+        value={futureShares}
+      />
+      <TextField
+        id="pe"
+        label="P/E Ratio"
+        type="number"
+        onChange={handleFuturePEChange}
+        value={futurePE}
+      />
+      <TextField
+        id="Price"
+        label="Price to FCF"
+        type="number"
+        onChange={handlePriceToFCFChange}
+        suffix="%"
+        value={priceToFCF}
+      />
+      <TextField
+        id="profit-margin"
+        label="Profit Margin"
+        type="number"
+        onChange={handleProfitMarginChange}
+        suffix="%"
+        value={futureProfitMargin}
+      />
+      <TextField
+        id="minIRR"
+        label="minimum IRR"
+        type="number"
+        onChange={handleMinimumIRRChange}
+        value={minimumIRR}
+      />
+      <TextField
+        id="outstandingSharesChange"
+        label="Outstanding Shares Reduction"
+        type="number"
+        onChange={handleAnnualOutstandingSharesChange}
+        value={annualOutstandingSharesChange}
+      />
+      <TextField
+        id="priceProjected"
+        label="Price Projceted"
+        type="number"
+        onChange={handlePriceProjectedChange}
+        value={priceSetByUser}
+      />
+      <div className={`${styles.titleContainer}`}> Projections </div>
+      <div>
+        Future Revenue:
+        {`${NumberUtils.numberToDollars(futureRevenue)}M`}
+      </div>
+      <div>
+        Future Cashflows:
+        {`${NumberUtils.numberToMillions(futureCashflow)}M`}
+      </div>
+      <div>
+        Future Earnings:
         {`${NumberUtils.numberToDollars(futureEarnings)}M`}
         </div>
         <div>
@@ -237,6 +371,13 @@ const FutureGrowth = ({ stock }) => {
         </div> */}
         <div className={`${styles.projectionTitle}`}>
           Future Price:
+      </div>
+      <div>
+        Future Cashflow Per Share:
+        {NumberUtils.numberToDollars(cashflowPerShare)}
+      </div>
+      <div>
+        Future Price:
         {NumberUtils.numberToDollars(futurePrice)}
         </div>
         <div className={`${styles.projectionTitle}`}>
@@ -255,6 +396,23 @@ const FutureGrowth = ({ stock }) => {
         </div>
       </div>
       {/* <div className={`${styles.calculateButton}`} onClick={calculateValues}>
+      <div>
+        Future Cashflow Price:
+        {NumberUtils.numberToDollars(fcfPriceProjected)}
+      </div>
+      <div>
+        IRR:
+        {NumberUtils.numberToPercentage(IRR)}
+      </div>
+      <div>
+        Good price:
+        {NumberUtils.numberToDollars(goodPrice)}
+      </div>
+      <div>
+        Intrinsic Value:
+        {`${NumberUtils.numberToDollars(NumberUtils.numberToMillions(intrinsicValue))}M`}
+      </div>
+      <div className={`${styles.calculateButton}`} onClick={calculateValues}>
         Calculate
       </div> */}
     </div>

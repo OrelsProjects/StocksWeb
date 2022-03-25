@@ -25,19 +25,22 @@ export default function InputScreen({
             </a>
             <div className={styles.inputsContainer}>
                 {
-                    parametersNames.map(parameterName =>
-                        <div className={styles.input} key={parameterName}>
-                            <TextField id="outlined-basic" label={parameterName} variant="outlined"
+                    Object.keys(parametersNames).map(parameterName => {
+                        const value = parametersNames[parameterName]
+                        parameters[parameterName] = value
+                        return (<div className={styles.input} key={parameterName}>
+                            <TextField id="outlined-basic" label={parameterName} variant="outlined" defaultValue={value}
                                 onChange={(event) => {
                                     setParameters((parameters) => {
                                         if (!parameters[parameterName]) {
                                             parameters[parameterName] = '';
                                         }
                                         parameters[parameterName] = event.target.value;
-                                        return parameters
+                                        return parameters;
                                     })
                                 }} />
-                        </div>
+                        </div>)
+                    }
                     )
                 }
             </div>
