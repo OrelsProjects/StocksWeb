@@ -16,14 +16,14 @@
 
 .modulesContainer {
     position: relative;
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center; */
     justify-content: space-around;
 }
 
 .futureGrowthContainer {
     height: 100vh;
-    width: 500px;
+    width: auto;
 }
 
 .howMuchToGrowContainer {

@@ -25,10 +25,16 @@ const FutureGrowth = ({ stock }) => {
     const newOutstandingShares =
       stock.getSharesOutstanding() * (1 - annualOutstandingSharesChange / 100 / 1) ** years
     setFutureShares(newOutstandingShares)
+    debugger;
     const newFutureRevenue = currentRevenue * (1 + annualGrowthRate / 100 / 1) ** (1 * years);
     const newFutureEarnings = newFutureRevenue * (futureProfitMargin / 100);
     const newFutureEPS = newFutureEarnings / futureShares;
-    const newFuturePrice = newFutureEPS * futurePE;
+    let newFuturePrice = 0;
+    if (newFutureEPS < 0 || futurePE < 0) {
+      newFuturePrice = 0;
+    } else {
+      newFuturePrice = newFutureEPS * futurePE;
+    }
     const newIRR = (newFuturePrice / priceProjected) ** (1 / years) - 1;
     const goodPrice = newFuturePrice / (minimumIRR / 100 + 1) ** years;
     setFutureRevenue(NumberUtils.numberToMillions(newFutureRevenue));
@@ -39,7 +45,7 @@ const FutureGrowth = ({ stock }) => {
     setGoodPrice(goodPrice);
   }
 
-  function initInitialValues() { 
+  function initInitialValues() {
     setFutureShares(stock.getSharesOutstanding());
     setFutureProfitMargin(stock.getProfitMargin());
     setFuturePE(stock.getForwardPE());
@@ -109,132 +115,148 @@ const FutureGrowth = ({ stock }) => {
     setPriceProjected(event.target.value);
   }
 
-  function handleOutsideClick() { }
-
-  //   useEffect(() => {
-  //     calculateFutureEarnings();
-  //   }, [futureRevenue]);
-  //   useEffect(() => {
-  //     calculateFutureEPS();
-  //   }, [futureEarnings]);
-  //   useEffect(() => {
-  //     calculateFuturePrice();
-  //   }, [futureEPS]);
-  //   useEffect(() => {
-  //     calculateFutureIRR();
-  //   }, [futurePrice]);
-
   useEffect(() => {
     initInitialValues();
   }, []);
 
   useEffect(() => {
     calculateValues();
+    debugger;
+    console.log(IRR)
+    console.log(parseFloat(minimumIRR))
   }, [futureShares, futureProfitMargin, futurePE, years, annualGrowthRate, futureShares, futurePE,
     minimumIRR, priceProjected, annualOutstandingSharesChange]);
 
   return (
     <div className={`${styles.container}`}>
-      <div className={`${styles.stockNameContainer}`}>
-        {stock.getStockName()}
-      </div>
-      <div>
-        Price:
+      <div className={`${styles.stockInfo} ${styles.section}`}>
+        <div className={`${styles.stockNameContainer}`}>
+          {stock.getStockName()}
+        </div>
+        <div className={`${styles.stockInfoText}`}>
+          Price:
         {' '}
-        {NumberUtils.numberToDollars(stock.getPrice())}
-      </div>
-      <div>
-        Current FCF Yield:
+          {NumberUtils.numberToDollars(stock.getPrice())}
+        </div>
+        <div className={`${styles.stockInfoText}`}>
+          Current FCF Yield:
         {' '}
-        {NumberUtils.numberToPercentage(freeCashFlowYield)}
+          {NumberUtils.numberToPercentage(freeCashFlowYield)}
+        </div>
       </div>
-      <div className={`${styles.titleContainer}`}> Assumptions </div>
-      <TextField
-        id="ticker"
-        label="Years"
-        type="number"
-        onChange={handleYearsChange}
-        value={years}
-      />
-      <TextField
-        id="growth"
-        label="Growth Rate"
-        type="number"
-        onChange={handleGrowthRateChange}
-        suffix="%"
-        value={annualGrowthRate}
-      />
-      <TextField
-        id="profit-margin"
-        label="Profit Margin"
-        type="number"
-        onChange={handleProfitMarginChange}
-        suffix="%"
-        value={futureProfitMargin}
-      />
-      <TextField
-        id="shares"
-        label="Shares Outstanding"
-        type="number"
-        onChange={handleFutureSharesChange}
-        value={futureShares}
-      />
-      <TextField
-        id="pe"
-        label="P/E Ratio"
-        type="number"
-        onChange={handleFuturePEChange}
-        value={futurePE}
-      />
-      <TextField
-        id="minIRR"
-        label="minimum IRR"
-        type="number"
-        onChange={handleMinimumIRRChange}
-        value={minimumIRR}
-      />
-      <TextField
-        id="outstandingSharesChange"
-        label="Outstanding Shares Reduction"
-        type="number"
-        onChange={handleAnnualOutstandingSharesChange}
-        value={annualOutstandingSharesChange}
-      />
-      <TextField
-        id="priceProjected"
-        label="Price Projceted"
-        type="number"
-        onChange={handlePriceProjectedChange}
-        value={priceProjected}
-      />
-      <div className={`${styles.titleContainer}`}> Projections </div>
-      <div>
-        Future Revenue:
+      <div className={`${styles.assumptions} ${styles.section}`}>
+        <div className={`${styles.sectionTitle}`}> Assumptions </div>
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="ticker"
+          label="Years"
+          type="number"
+          variant="outlined"
+          onChange={handleYearsChange}
+          value={years}
+        />
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="growth"
+          label="Growth Rate"
+          type="number"
+          variant="outlined"
+          onChange={handleGrowthRateChange}
+          suffix="%"
+          value={annualGrowthRate}
+        />
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="profit-margin"
+          label="Profit Margin"
+          type="number"
+          variant="outlined"
+          onChange={handleProfitMarginChange}
+          suffix="%"
+          value={futureProfitMargin}
+        />
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="shares"
+          label="Shares Outstanding"
+          type="number"
+          variant="outlined"
+          onChange={handleFutureSharesChange}
+          value={futureShares}
+        />
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="pe"
+          label="P/E Ratio"
+          type="number"
+          variant="outlined"
+          onChange={handleFuturePEChange}
+          value={futurePE}
+        />
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="minIRR"
+          label="minimum IRR"
+          type="number"
+          variant="outlined"
+          onChange={handleMinimumIRRChange}
+          value={minimumIRR}
+        />
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="outstandingSharesChange"
+          label="Outstanding Shares Reduction"
+          type="number"
+          variant="outlined"
+          onChange={handleAnnualOutstandingSharesChange}
+          value={annualOutstandingSharesChange}
+        />
+        <TextField
+          className={`${styles.inputContainer}`}
+          id="priceProjected"
+          label="Price Projceted"
+          type="number"
+          variant="outlined"
+          onChange={handlePriceProjectedChange}
+          value={priceProjected}
+        />
+      </div>
+      <div className={`${styles.projections} ${styles.section}`}>
+        <div className={`${styles.sectionTitle}`}> Projections </div>
+        {/* <div >
+          Future Revenue:
         {`${NumberUtils.numberToDollars(futureRevenue)}M`}
-      </div>
-      <div>
-        Future Earnings:
+        </div>
+        <div>
+          Future Earnings:
         {`${NumberUtils.numberToDollars(futureEarnings)}M`}
-      </div>
-      <div>
-        Future EPS:
+        </div>
+        <div>
+          Future EPS:
         {NumberUtils.numberToDollars(futureEPS)}
-      </div>
-      <div>
-        Future Price:
+        </div> */}
+        <div className={`${styles.projectionTitle}`}>
+          Future Price:
         {NumberUtils.numberToDollars(futurePrice)}
+        </div>
+        <div className={`${styles.projectionTitle}`}>
+          IRR:
+          <div className={`${IRR < parseFloat(minimumIRR) / 100 ? styles.badValue : styles.goodValue}`}>
+            {NumberUtils.numberToPercentage(IRR)}
+          </div>
+        </div>
+        <div className={`${styles.projectionTitle}`}>
+          Good price:
+          <div className={
+            `${goodPrice <= stock.getPrice() ? styles.badValue : styles.goodValue}`}
+          >
+            {NumberUtils.numberToDollars(goodPrice)}
+          </div>
+        </div>
       </div>
-      <div>
-        IRR:
-        {NumberUtils.numberToPercentage(IRR)}
-      </div>
-      <div>
-        Good price:
-        {NumberUtils.numberToDollars(goodPrice)}
-      </div>
-      <div className={`${styles.calculateButton}`} onClick={calculateValues}>
+      {/* <div className={`${styles.calculateButton}`} onClick={calculateValues}>
         Calculate
-      </div>
+      </div> */}
     </div>
   );
 };
