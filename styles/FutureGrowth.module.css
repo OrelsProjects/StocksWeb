@@ -1,17 +1,16 @@
 .container {
     height: 100%;
     width: 100%;
-    background-color: rebeccapurple;
     position: relative;
     display: flex;
-    align-items: center;
-    flex-direction: column;
+    align-items: flex-start;
+    flex-direction: row;
 }
 
 .stockNameContainer {
-    color: #dfdfdf;
+    color: #121212;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .calculateButton {
@@ -29,8 +28,50 @@
     margin-bottom: 25px;
 }
 
-.titleContainer {
+.stockInfo {
+    font-size: 18px;
+}
+
+.stockInfoText {
+    font-size: 18px;
+}
+
+.assumptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.projections {}
+
+.projectionTitle {
+    font-size: 20px;
+}
+
+.section {
+    margin: 20px;
+}
+
+.sectionTitle {
     font-weight: 900;
-    font-size: 17;
+    font-size: 24px;
     text-decoration: underline;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+}
+
+.goodValue {
+    color: green;
+}
+
+.badValue {
+    color: red;
+}
+
+.inputContainer {
+    margin: 10px 0 !important;
 }
