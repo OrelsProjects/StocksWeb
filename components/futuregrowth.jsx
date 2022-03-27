@@ -29,6 +29,8 @@ const FutureGrowth = ({ stock }) => {
   const [fcfPriceProjected, setFCFPriceProjected] = useState(0);
   const [priceToFCF, setPriceToFCF] = useState(10);
 
+  const [andrewsPrice, setAndrewsPrice] = useState(0);
+
   function calculateAccumulatedCash() {
     let currentRevenue = stock.getRevenue();
     let accumulatedCashflow = 0;
@@ -40,13 +42,31 @@ const FutureGrowth = ({ stock }) => {
     return accumulatedCashflow
   }
 
-  function calculateIntrisicValue(accumulatedCash){
+  function calculateIntrisicValue(accumulatedCash) {
     const cash = stock.getCashAndCashEquivalents();
     const debt = stock.getDebt();
     const netDebt = debt - cash;
     debugger;
     const cashValue = accumulatedCash - netDebt;
     setIntrinsicValue(cashValue);
+  }
+
+  function calculateAndrewsPrice(currentFCF, growthRate5Years, discountRate, multiple, years) {
+    let yearsCashflows = [];
+    let yearsPV = []; // The money left after the shareholders take their [discountRate] amount of money
+    // First 5 years
+    for (let i = 0; i < years; i += 1) {
+      yearsCashflows[i] = currentFCF * ((1 + growthRate5Years) ** (i + 1))
+      yearsPV[i] = yearsCashflows[i] / ((1 + discountRate) ** (i + 1))
+    }
+
+    const accumulatedPVs = yearsPV.reduce((partialSum, a) => partialSum + a, 0);
+    const lastYearsMarketCap = yearsCashflows[yearsCashflows.length - 1] * multiple;
+    const lastYearsPV = lastYearsMarketCap / ((1 + discountRate) ** (years));
+    const ev = accumulatedPVs + lastYearsPV + stock.getDebt() - stock.getCashAndCashEquivalents();
+    const price = ev / stock.getSharesOutstanding();
+    setAndrewsPrice(price);
+    return price;
   }
 
   function calculateValues() {
@@ -75,6 +95,7 @@ const FutureGrowth = ({ stock }) => {
     setCashflowPerShare(newCashflowPerShare);
     const accumulateCash = calculateAccumulatedCash();
     calculateIntrisicValue(accumulateCash);
+    calculateAndrewsPrice(stock.getFreeCashFlow(), annualGrowthRate, minimumIRR, priceToFCF, years);
   }
 
   function initInitialValues() {
@@ -194,6 +215,11 @@ const FutureGrowth = ({ stock }) => {
         {' '}
         {NumberUtils.numberToPercentage(freeCashFlowYield)}
       </div>
+      <div>
+        Market Cap:
+        {' '}
+        {`${NumberUtils.numberToMillions(stock.getMarketCap())}M`}
+      </div>
       <div className={`${styles.titleContainer}`}> Assumptions </div>
       <TextField
         id="ticker"
@@ -309,6 +335,10 @@ const FutureGrowth = ({ stock }) => {
       <div>
         Intrinsic Value:
         {`${NumberUtils.numberToDollars(NumberUtils.numberToMillions(intrinsicValue))}M`}
+      </div>
+      <div>
+        Andrews Price:
+        {`${NumberUtils.numberToDollars(andrewsPrice)}`}
       </div>
       <div className={`${styles.calculateButton}`} onClick={calculateValues}>
         Calculate
