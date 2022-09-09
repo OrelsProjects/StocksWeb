@@ -17,8 +17,12 @@ export default class Statistics {
   }
 
   getSharesOutstanding() {
-    return this.statistics?.defaultKeyStatistics?.impliedSharesOutstanding?.raw
-      ? this.statistics?.defaultKeyStatistics?.impliedSharesOutstanding?.raw : 0;
+    let sharesOutstanding = this.statistics?.defaultKeyStatistics?.impliedSharesOutstanding?.raw;
+    debugger;
+    if (!sharesOutstanding || sharesOutstanding <= 0) {
+      sharesOutstanding = this.statistics?.defaultKeyStatistics?.sharesOutstanding?.raw;
+    }
+    return sharesOutstanding;
   }
 
   getRevenue() {

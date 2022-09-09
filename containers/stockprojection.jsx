@@ -39,6 +39,7 @@ const StockProjection = ({ ticker, onBackClick }) => {
   useEffect(async () => {
     if (ticker && !stocks[ticker]) {
       const res = await getStockInfoFromAPI(ticker.toString().toUpperCase());
+      debugger;
       dispatch(stocksActions.addNewStock(res));
       setStock(res);
     }
